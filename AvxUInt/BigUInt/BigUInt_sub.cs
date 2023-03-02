@@ -50,7 +50,7 @@
                 throw new OverflowException();
             }
 
-            UInt32 n = b[0];
+            UInt32 n = b.value[0];
             if (a < n) {
                 throw new OverflowException();
             }
@@ -63,7 +63,7 @@
                 throw new OverflowException();
             }
 
-            UInt64 n = UIntUtil.Pack(b[1], b[0]);
+            UInt64 n = UIntUtil.Pack(b.value[1], b.value[0]);
             if (a < n) {
                 throw new OverflowException();
             }

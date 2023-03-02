@@ -66,7 +66,7 @@
 
             UIntUtil.DivRem(q.value, r.value, b);
 
-            return (q, r[0]);
+            return (q, r.value[0]);
         }
 
         public static BigUInt<N> Div(BigUInt<N> a, UInt32 b) {
@@ -118,7 +118,7 @@
                 return (0u, a);
             }
 
-            UInt32 denom = b[0];
+            UInt32 denom = b.value[0];
 
             return (a / denom, a % denom);
         }
@@ -128,7 +128,7 @@
                 return 0u;
             }
 
-            UInt32 denom = b[0];
+            UInt32 denom = b.value[0];
 
             return a / denom;
         }
@@ -138,7 +138,7 @@
                 return a;
             }
 
-            UInt32 denom = b[0];
+            UInt32 denom = b.value[0];
 
             return a % denom;
         }
@@ -148,7 +148,7 @@
                 return (0uL, a);
             }
 
-            UInt64 denom = UIntUtil.Pack(b[1], b[0]);
+            UInt64 denom = UIntUtil.Pack(b.value[1], b.value[0]);
 
             return (a / denom, a % denom);
         }
@@ -158,7 +158,7 @@
                 return 0uL;
             }
 
-            UInt64 denom = UIntUtil.Pack(b[1], b[0]);
+            UInt64 denom = UIntUtil.Pack(b.value[1], b.value[0]);
 
             return a / denom;
         }
@@ -168,7 +168,7 @@
                 return a;
             }
 
-            UInt64 denom = UIntUtil.Pack(b[1], b[0]);
+            UInt64 denom = UIntUtil.Pack(b.value[1], b.value[0]);
 
             return a % denom;
         }
@@ -205,7 +205,7 @@
                     UIntUtil.Add(q.value, 1u);
                 }
                 else if ((lzc_r - lzc_b) == 1u) {
-                    UIntUtil.LeftShift(r.value, 1);
+                    UIntUtil.LeftShift(r.value, 1, check_overflow: false);
 
                     if (UIntUtil.GreaterThanOrEqual((uint)Length, r.value, b.value)) {
                         UIntUtil.Add(q.value, 1u);
@@ -231,7 +231,7 @@
                     UIntUtil.Add(q.value, 1u);
                 }
                 else if ((lzc_r - lzc_b) == 1u) {
-                    UIntUtil.LeftShift(r.value, 1);
+                    UIntUtil.LeftShift(r.value, 1, check_overflow: false);
 
                     if (UIntUtil.GreaterThanOrEqual((uint)Length, r.value, b.value)) {
                         UIntUtil.Add(q.value, 1u);

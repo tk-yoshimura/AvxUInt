@@ -7,20 +7,20 @@ namespace AvxUInt {
     internal static partial class UIntUtil {
 
         /// <summary>Shift uint32 array v &lt;&lt;= sft</summary>
-        public static unsafe void LeftShift(UInt32[] value, int sft) {
+        public static unsafe void LeftShift(UInt32[] value, int sft, bool check_overflow = false) {
             if (sft < 0) {
                 throw new ArgumentOutOfRangeException(nameof(sft));
-            }
-
-            if (sft > LeadingZeroCount(value)) {
-                throw new OverflowException();
             }
 
             int sft_block = sft / UInt32Bits, sft_rem = sft % UInt32Bits;
 
             if (sft_rem == 0) {
-                LeftBlockShift(value, sft_block);
+                LeftBlockShift(value, sft_block, check_overflow);
                 return;
+            }
+
+            if (check_overflow && sft > LeadingZeroCount(value)) {
+                throw new OverflowException();
             }
 
             byte lsft = (byte)sft_rem, rsft = (byte)(UInt32Bits - sft_rem);
@@ -161,12 +161,12 @@ namespace AvxUInt {
 
         /// <summary>Shift uint32 array v &lt;&lt;= sft * UInt32Bits</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void LeftBlockShift(UInt32[] value, int sft) {
+        public static unsafe void LeftBlockShift(UInt32[] value, int sft, bool check_overflow = false) {
             if (sft < 0) {
                 throw new ArgumentOutOfRangeException(nameof(sft));
             }
 
-            if (checked(sft + Digits(value)) > value.Length) {
+            if (check_overflow && checked(sft + Digits(value)) > value.Length) {
                 throw new OverflowException();
             }
 

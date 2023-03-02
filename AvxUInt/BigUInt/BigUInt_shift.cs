@@ -6,7 +6,7 @@
                 throw new ArgumentOutOfRangeException(nameof(sft));
             }
 
-            return LeftShift(n, sft);
+            return LeftShift(n, sft, check_overflow: false);
         }
 
         public static BigUInt<N> operator >>(BigUInt<N> n, int sft) {
@@ -17,10 +17,10 @@
             return RightShift(n, sft);
         }
 
-        public static BigUInt<N> LeftShift(BigUInt<N> n, int sft) {
+        public static BigUInt<N> LeftShift(BigUInt<N> n, int sft, bool check_overflow = false) {
             BigUInt<N> ret = n.Copy();
 
-            UIntUtil.LeftShift(ret.value, sft);
+            UIntUtil.LeftShift(ret.value, sft, check_overflow);
 
             return ret;
         }
@@ -33,10 +33,10 @@
             return ret;
         }
 
-        public static BigUInt<N> LeftBlockShift(BigUInt<N> n, int sft) {
+        public static BigUInt<N> LeftBlockShift(BigUInt<N> n, int sft, bool check_overflow = false) {
             BigUInt<N> ret = n.Copy();
 
-            UIntUtil.LeftBlockShift(ret.value, sft);
+            UIntUtil.LeftBlockShift(ret.value, sft, check_overflow);
 
             return ret;
         }
