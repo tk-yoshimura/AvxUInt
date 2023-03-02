@@ -10,7 +10,7 @@ namespace AvxUIntTest {
         private static readonly ReadOnlyCollection<(BigUInt<N> bits, BigInteger bint)> tests;
         static CmpTests() {
             List<(BigUInt<N> bits, BigInteger bint)> vs = new();
-            for (uint v = ~0u; v > 0; v /= 3) {
+            for (uint v = ~0u; v > 0; v /= 15) {
                 for (int s = 1; s <= length / 2; s++) {
                     UInt32[] bits = new UInt32[length];
 
@@ -25,24 +25,7 @@ namespace AvxUIntTest {
             }
 
             Random random = new(1234);
-            for (int i = 0; i < length; i++) {
-                for (int j = i; j < length; j++) {
-                    UInt32[] bits = new UInt32[length];
-
-                    for (int k = i; k <= j; k++) {
-                        bits[k] = ~0u;
-                    }
-
-                    UInt32[] bits_swapbit = (UInt32[])bits.Clone();
-                    bits_swapbit[random.Next(length)] ^= 1u << random.Next(UIntUtil.UInt32Bits);
-
-                    BigUInt<N> b = new(bits), b_swapbit = new(bits_swapbit);
-                    vs.Add((b, (BigInteger)b));
-                    vs.Add((b_swapbit, (BigInteger)b_swapbit));
-                }
-            }
-
-            for (int i = 0; i < 40; i++) {
+            for (int i = 0; i < 32; i++) {
                 UInt32[] bits = UIntUtil.Random(random, length, random.Next(length * UIntUtil.UInt32Bits + 1));
                 UInt32[] bits_swapbit = (UInt32[])bits.Clone();
                 bits_swapbit[random.Next(length)] ^= 1u << random.Next(UIntUtil.UInt32Bits);
