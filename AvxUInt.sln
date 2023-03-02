@@ -3,13 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BigUInt", "BigUInt\BigUInt.csproj", "{8DB7A1F0-E416-46BA-BB5B-FADC53B31EA1}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BigUIntTest", "BigUIntTest\BigUIntTest.csproj", "{15881B60-04F6-4F06-9640-CD3F694E9F01}"
-	ProjectSection(ProjectDependencies) = postProject
-		{8DB7A1F0-E416-46BA-BB5B-FADC53B31EA1} = {8DB7A1F0-E416-46BA-BB5B-FADC53B31EA1}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvxUInt", "AvxUInt\AvxUInt.csproj", "{12CCBA50-CC56-4EE6-BC5A-E9CFEB487331}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvxUIntTest", "AvxUIntTest\AvxUIntTest.csproj", "{CB7BDD11-05E5-441C-B5A6-B0D806CF1567}"
@@ -17,7 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvxUIntTest", "AvxUIntTest\
 		{12CCBA50-CC56-4EE6-BC5A-E9CFEB487331} = {12CCBA50-CC56-4EE6-BC5A-E9CFEB487331}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvxSandbox", "AvxSandbox\AvxSandbox.csproj", "{DCA7A1BE-CEBA-4079-9EC5-EDD814016F71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvxSandbox", "AvxSandbox\AvxSandbox.csproj", "{DCA7A1BE-CEBA-4079-9EC5-EDD814016F71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +18,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8DB7A1F0-E416-46BA-BB5B-FADC53B31EA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8DB7A1F0-E416-46BA-BB5B-FADC53B31EA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8DB7A1F0-E416-46BA-BB5B-FADC53B31EA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8DB7A1F0-E416-46BA-BB5B-FADC53B31EA1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15881B60-04F6-4F06-9640-CD3F694E9F01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15881B60-04F6-4F06-9640-CD3F694E9F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15881B60-04F6-4F06-9640-CD3F694E9F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15881B60-04F6-4F06-9640-CD3F694E9F01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12CCBA50-CC56-4EE6-BC5A-E9CFEB487331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{12CCBA50-CC56-4EE6-BC5A-E9CFEB487331}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12CCBA50-CC56-4EE6-BC5A-E9CFEB487331}.Release|Any CPU.ActiveCfg = Release|Any CPU
