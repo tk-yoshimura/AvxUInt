@@ -23,12 +23,14 @@ namespace AvxUIntTest {
 
                 Console.Write("\n");
             }
-
-            Assert.ThrowsException<OverflowException>(() => {
+            {
                 BigUInt<N> v = new(1u);
 
-                BigUInt<N> v_sft = BigUInt<N>.LeftBlockShift(v, BigUInt<N>.Length);
-            });
+                Assert.ThrowsException<OverflowException>(() => {
+                    BigUInt<N> v_sft = BigUInt<N>.LeftShift(v, BigUInt<N>.Bits, check_overflow: true);
+                });
+                Assert.AreEqual(BigUInt<N>.Zero, BigUInt<N>.LeftShift(v, BigUInt<N>.Bits, check_overflow: false));
+            }
         }
 
         public static void RightShiftTest() {
@@ -72,11 +74,15 @@ namespace AvxUIntTest {
                 Console.Write("\n");
             }
 
-            Assert.ThrowsException<OverflowException>(() => {
+            {
                 BigUInt<N> v = new(0x12345678u);
+            
+                Assert.ThrowsException<OverflowException>(() => {
+                    BigUInt<N> v_sft = BigUInt<N>.LeftBlockShift(v, BigUInt<N>.Length, check_overflow: true);
+                });
 
-                BigUInt<N> v_sft = BigUInt<N>.LeftBlockShift(v, BigUInt<N>.Length);
-            });
+                Assert.AreEqual(BigUInt<N>.Zero, BigUInt<N>.LeftBlockShift(v, BigUInt<N>.Length, check_overflow: false));
+            }
         }
 
         public static void RightBlockShiftTest() {

@@ -73,5 +73,19 @@ namespace AvxUInt {
                 }
             }
         }
+
+        /// <summary>Zeroset lower bits</summary>
+        public static void ZerosetLowerBit(UInt32[] v, uint bits) {
+            uint bits_block = bits / UInt32Bits;
+            uint bits_rem = bits % UInt32Bits;
+
+            if (bits_block >= v.Length) {
+                Zeroset(v);
+                return;
+            }
+
+            Zeroset(v, 0u, bits_block);
+            v[bits_block] = (v[bits_block] >> (int)bits_rem) << (int)bits_rem;
+        }
     }
 }

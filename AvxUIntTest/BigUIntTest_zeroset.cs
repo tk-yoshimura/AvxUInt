@@ -1,5 +1,7 @@
 using AvxUInt;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Numerics;
 
 namespace AvxUIntTest {
     public static class ZerosetTests<N> where N : struct, IConstant {
@@ -30,6 +32,21 @@ namespace AvxUIntTest {
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
                 UIntUtil.Zeroset(n2, 2, length - 1);
             });
+        }
+
+        public static void ZerosetLowerBitsTest() {
+            Random random = new(1234);
+
+            for (uint sft = 0; sft <= BigUInt<N>.Bits + 4; sft++) {
+                UInt32[] bits = UIntUtil.Random(random, BigUInt<N>.Length, BigUInt<N>.Bits);
+                BigUInt<N> v = new(bits, enable_clone: false);
+                BigInteger n = v;
+
+                UIntUtil.ZerosetLowerBit(bits, sft);
+                BigUInt<N> u = new(bits, enable_clone: false);
+
+                Assert.AreEqual((n >> (int)sft) << (int)sft, (BigInteger)u);
+            }
         }
     }
 
@@ -78,6 +95,51 @@ namespace AvxUIntTest {
             ZerosetTests<N63>.ZerosetTest();
             ZerosetTests<N64>.ZerosetTest();
             ZerosetTests<N65>.ZerosetTest();
+        }
+
+        [TestMethod]
+        public void ZerosetLowerBitsN8Test() {
+            ZerosetTests<N4>.ZerosetLowerBitsTest();
+            ZerosetTests<N5>.ZerosetLowerBitsTest();
+            ZerosetTests<N6>.ZerosetLowerBitsTest();
+            ZerosetTests<N7>.ZerosetLowerBitsTest();
+            ZerosetTests<N8>.ZerosetLowerBitsTest();
+        }
+
+        [TestMethod]
+        public void ZerosetLowerBitsN16Test() {
+            ZerosetTests<N9>.ZerosetLowerBitsTest();
+            ZerosetTests<N10>.ZerosetLowerBitsTest();
+            ZerosetTests<N11>.ZerosetLowerBitsTest();
+            ZerosetTests<N12>.ZerosetLowerBitsTest();
+            ZerosetTests<N13>.ZerosetLowerBitsTest();
+            ZerosetTests<N14>.ZerosetLowerBitsTest();
+            ZerosetTests<N15>.ZerosetLowerBitsTest();
+            ZerosetTests<N16>.ZerosetLowerBitsTest();
+        }
+
+        [TestMethod]
+        public void ZerosetLowerBitsN32Test() {
+            ZerosetTests<N17>.ZerosetLowerBitsTest();
+            ZerosetTests<N23>.ZerosetLowerBitsTest();
+            ZerosetTests<N24>.ZerosetLowerBitsTest();
+            ZerosetTests<N25>.ZerosetLowerBitsTest();
+            ZerosetTests<N31>.ZerosetLowerBitsTest();
+            ZerosetTests<N32>.ZerosetLowerBitsTest();
+        }
+
+        [TestMethod]
+        public void ZerosetLowerBitsN64Test() {
+            ZerosetTests<N33>.ZerosetLowerBitsTest();
+            ZerosetTests<N47>.ZerosetLowerBitsTest();
+            ZerosetTests<N48>.ZerosetLowerBitsTest();
+            ZerosetTests<N50>.ZerosetLowerBitsTest();
+            ZerosetTests<N53>.ZerosetLowerBitsTest();
+            ZerosetTests<N56>.ZerosetLowerBitsTest();
+            ZerosetTests<N59>.ZerosetLowerBitsTest();
+            ZerosetTests<N63>.ZerosetLowerBitsTest();
+            ZerosetTests<N64>.ZerosetLowerBitsTest();
+            ZerosetTests<N65>.ZerosetLowerBitsTest();
         }
     }
 }
