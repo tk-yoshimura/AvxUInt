@@ -56,5 +56,13 @@
 
             return ret;
         }
+
+        public static BigUInt<N> RightRoundBlockShift(BigUInt<N> n, int sft) {
+            BigUInt<N> ret = n.Copy();
+
+            UIntUtil.RightRoundBlockShift(ret.value, sft);
+
+            return ret;
+        }
     }
 }

@@ -275,5 +275,28 @@ namespace AvxUInt {
                 Add(value, 1u);
             }
         }
+
+        /// <summary>Shift uint32 array v &gt;&gt;= sft with round</summary>
+        public static unsafe void RightRoundBlockShift(UInt32[] value, int sft) {
+            if (sft < 0) {
+                throw new ArgumentOutOfRangeException(nameof(sft));
+            }
+            if (sft == 0) {
+                return;
+            }
+
+            if (sft > value.Length) {
+                Zeroset(value);
+                return;
+            }
+
+            bool round = value[sft - 1] > UInt32Round;
+
+            RightBlockShift(value, sft);
+
+            if (round) {
+                Add(value, 1u);
+            }
+        }
     }
 }

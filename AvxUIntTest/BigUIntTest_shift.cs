@@ -139,6 +139,40 @@ namespace AvxUIntTest {
                 Console.Write("\n");
             }
         }
+
+        public static void RightRoundBlockShiftTest() {
+            Random random = new(1234);
+
+            UInt32[] bits = UIntUtil.Random(random, BigUInt<N>.Length, BigUInt<N>.Bits);
+
+            BigUInt<N> v = new(bits, enable_clone: false);
+            BigInteger bi = v;
+
+            for (int sft = 0; sft <= BigUInt<N>.Length + 4; sft++) {
+                BigUInt<N> v_sft = BigUInt<N>.RightRoundBlockShift(v, sft);
+                BigInteger bi_sft;
+                if (sft >= 1) {
+                    bi_sft = bi >> (sft * UIntUtil.UInt32Bits - 1);
+                    if ((bi_sft & 1) > 0) {
+                        bi_sft >>= 1;
+                        bi_sft++;
+                    }
+                    else {
+                        bi_sft >>= 1;
+                    }
+                }
+                else {
+                    bi_sft = bi;
+                }
+
+                Console.WriteLine(sft);
+                Console.WriteLine(v.ToHexcode());
+                Console.WriteLine(v_sft.ToHexcode());
+                Assert.AreEqual(bi_sft, v_sft);
+
+                Console.Write("\n");
+            }
+        }
     }
 
     [TestClass]
@@ -306,6 +340,39 @@ namespace AvxUIntTest {
             ShiftTests<N63>.RightRoundShiftTest();
             ShiftTests<N64>.RightRoundShiftTest();
             ShiftTests<N65>.RightRoundShiftTest();
+        }
+
+        [TestMethod]
+        public void RightRoundBlockShiftTest() {
+            ShiftTests<N4>.RightRoundBlockShiftTest();
+            ShiftTests<N5>.RightRoundBlockShiftTest();
+            ShiftTests<N6>.RightRoundBlockShiftTest();
+            ShiftTests<N7>.RightRoundBlockShiftTest();
+            ShiftTests<N8>.RightRoundBlockShiftTest();
+            ShiftTests<N9>.RightRoundBlockShiftTest();
+            ShiftTests<N10>.RightRoundBlockShiftTest();
+            ShiftTests<N11>.RightRoundBlockShiftTest();
+            ShiftTests<N12>.RightRoundBlockShiftTest();
+            ShiftTests<N13>.RightRoundBlockShiftTest();
+            ShiftTests<N14>.RightRoundBlockShiftTest();
+            ShiftTests<N15>.RightRoundBlockShiftTest();
+            ShiftTests<N16>.RightRoundBlockShiftTest();
+            ShiftTests<N17>.RightRoundBlockShiftTest();
+            ShiftTests<N23>.RightRoundBlockShiftTest();
+            ShiftTests<N24>.RightRoundBlockShiftTest();
+            ShiftTests<N25>.RightRoundBlockShiftTest();
+            ShiftTests<N31>.RightRoundBlockShiftTest();
+            ShiftTests<N32>.RightRoundBlockShiftTest();
+            ShiftTests<N33>.RightRoundBlockShiftTest();
+            ShiftTests<N47>.RightRoundBlockShiftTest();
+            ShiftTests<N48>.RightRoundBlockShiftTest();
+            ShiftTests<N50>.RightRoundBlockShiftTest();
+            ShiftTests<N53>.RightRoundBlockShiftTest();
+            ShiftTests<N56>.RightRoundBlockShiftTest();
+            ShiftTests<N59>.RightRoundBlockShiftTest();
+            ShiftTests<N63>.RightRoundBlockShiftTest();
+            ShiftTests<N64>.RightRoundBlockShiftTest();
+            ShiftTests<N65>.RightRoundBlockShiftTest();
         }
     }
 }
