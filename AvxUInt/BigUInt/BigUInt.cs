@@ -87,7 +87,7 @@ namespace AvxUInt {
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static BigUInt<N> Full { get; } =
-            new((new UInt32[Length]).Select(_ => ~0u).ToArray(), enable_clone: false);
+            new(Enumerable.Repeat(~0u, Length).ToArray(), enable_clone: false);
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsFull => UIntUtil.IsFull((uint)Length, value);
 
