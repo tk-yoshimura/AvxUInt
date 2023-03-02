@@ -1,19 +1,19 @@
-# BigUInt
- Big Unsigned Integer Implements
+# AvxUInt
+ AVX Accelerated BigUInt Arithmetic Implements
 
 ## Requirement
  .NET 6.0
 
 ## Usage
 ```csharp
-UInt128 v1 = "74607431768211455";
-UInt128 v2 = "3402823669209384634633746074";
+BigUInt<N4> v1 = "74607431768211455";
+BigUInt<N4> v2 = "3402823669209384634633746074";
 
-UInt128 v3 = v1 + v2;
+BigUInt<N4> v3 = v1 + v2;
 ```
 
 ## Licence
-[MIT](https://github.com/tk-yoshimura/BigUInt/blob/main/LICENSE)
+[MIT](https://github.com/tk-yoshimura/AvxUInt/blob/main/LICENSE)
 
 ## Author
 
