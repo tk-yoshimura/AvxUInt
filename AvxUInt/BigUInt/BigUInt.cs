@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Runtime.Intrinsics.X86;
 
 namespace AvxUInt {
     public sealed partial class BigUInt<N> : ICloneable where N : struct, IConstant {
@@ -81,12 +82,12 @@ namespace AvxUInt {
             : this(arr.ToArray(), offset, carry) { }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public static BigUInt<N> Zero { get; } = new();
+        public static BigUInt<N> Zero => new();
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsZero => UIntUtil.IsZero((uint)Length, value);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public static BigUInt<N> Full { get; } =
+        public static BigUInt<N> Full =>
             new(Enumerable.Repeat(~0u, Length).ToArray(), enable_clone: false);
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsFull => UIntUtil.IsFull((uint)Length, value);

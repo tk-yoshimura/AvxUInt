@@ -42,7 +42,7 @@
         }
 
         public static (BigUInt<N> q, BigUInt<N> r) DivRem(BigUInt<N> a, BigUInt<N> b) {
-            BigUInt<N> q = Zero.Copy(), r = a.Copy();
+            BigUInt<N> q = Zero, r = a.Copy();
 
             UIntUtil.DivRem(q.value, r.value, b.value);
 
@@ -62,7 +62,7 @@
                 return (a >> UIntUtil.Power2(b), a.value[0] & (b - 1u));
             }
 
-            BigUInt<N> q = Zero.Copy(), r = a.Copy();
+            BigUInt<N> q = Zero, r = a.Copy();
 
             UIntUtil.DivRem(q.value, r.value, b);
 
@@ -90,7 +90,7 @@
                 return (a >> UIntUtil.Power2(b), UIntUtil.Pack(a.value[1], a.value[0]) & (b - 1uL));
             }
 
-            BigUInt<N> q = Zero.Copy(), r = a.Copy();
+            BigUInt<N> q = Zero, r = a.Copy();
 
             UIntUtil.DivRem(q.value, r.value, b);
 

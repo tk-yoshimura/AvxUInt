@@ -22,7 +22,7 @@
         }
 
         public static BigUInt<N> Mul(BigUInt<N> a, BigUInt<N> b) {
-            BigUInt<N> ret = Zero.Copy();
+            BigUInt<N> ret = Zero;
 
             UIntUtil.Fma(ret.value, a.value, b.value);
 
@@ -34,7 +34,7 @@
                 return LeftShift(a, UIntUtil.Power2(b), check_overflow: true);
             }
 
-            BigUInt<N> ret = Zero.Copy();
+            BigUInt<N> ret = Zero;
 
             UIntUtil.Fma(ret.value, a.value, b);
 
@@ -46,7 +46,7 @@
                 return LeftShift(a, UIntUtil.Power2(b), check_overflow: true);
             }
 
-            BigUInt<N> ret = Zero.Copy();
+            BigUInt<N> ret = Zero;
 
             UIntUtil.Fma(ret.value, a.value, b);
 
@@ -58,7 +58,7 @@
                 return LeftShift(b, UIntUtil.Power2(a), check_overflow: true);
             }
 
-            BigUInt<N> ret = Zero.Copy();
+            BigUInt<N> ret = Zero;
 
             UIntUtil.Fma(ret.value, b.value, a);
 
@@ -70,7 +70,7 @@
                 return LeftShift(b, UIntUtil.Power2(a), check_overflow: true);
             }
 
-            BigUInt<N> ret = Zero.Copy();
+            BigUInt<N> ret = Zero;
 
             UIntUtil.Fma(ret.value, b.value, a);
 
@@ -78,7 +78,7 @@
         }
 
         public static BigUInt<M> Mul<M>(BigUInt<N> a, BigUInt<N> b) where M : struct, IConstant {
-            BigUInt<M> ret = BigUInt<M>.Zero.Copy();
+            BigUInt<M> ret = BigUInt<M>.Zero;
 
             UIntUtil.Fma(ret.value, a.value, b.value);
 
