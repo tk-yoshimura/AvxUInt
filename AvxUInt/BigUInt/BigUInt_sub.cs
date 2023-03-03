@@ -29,6 +29,14 @@
             return ret;
         }
 
+        public static BigUInt<M> Sub<M>(BigUInt<N> a, BigUInt<N> b) where M: struct, IConstant {
+            BigUInt<M> ret = a.Convert<M>();
+
+            UIntUtil.Sub(ret.value, b.value);
+
+            return ret;
+        }
+
         public static BigUInt<N> Sub(BigUInt<N> a, UInt32 b) {
             BigUInt<N> ret = a.Copy();
 
