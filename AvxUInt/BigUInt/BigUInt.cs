@@ -110,20 +110,25 @@ namespace AvxUInt {
             return new BigUInt<N>(value, enable_clone: true);
         }
 
-        public BigUInt<M> Convert<M>() where M: struct, IConstant {
-            if (default(N).Value <= default(M).Value) {
-                UInt32[] ret = new UInt32[default(M).Value];
-                Array.Copy(value, ret, default(N).Value);
+        public BigUInt<M> Convert<M>(bool check_overflow = true) where M: struct, IConstant {
+            int length_src = Length, length_dst = default(M).Value;
+
+            if (!check_overflow && length_src > length_dst) {
+                return new BigUInt<M>(value[..length_dst], enable_clone: false);
+            }
+            else if (length_src <= length_dst) {
+                UInt32[] ret = new UInt32[length_dst];
+                Array.Copy(value, ret, length_src);
 
                 return new BigUInt<M>(ret, enable_clone: false);
             }
             else {
                 uint digits = Digits;
-                if (digits > default(M).Value) {
+                if (digits > length_dst) {
                     throw new OverflowException();
                 }
 
-                UInt32[] ret = new UInt32[default(M).Value];
+                UInt32[] ret = new UInt32[length_dst];
                 Array.Copy(value, ret, digits);
 
                 return new BigUInt<M>(ret, enable_clone: false);
