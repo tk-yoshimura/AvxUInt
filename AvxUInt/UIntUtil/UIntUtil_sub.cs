@@ -55,16 +55,14 @@ namespace AvxUInt {
                     (a0, a1, a2, a3) = LoadX4(va, va0, arr_a.Length);
                     (b0, b1, b2, b3) = LoadX4(vb, vb0, arr_b.Length);
 
-                    UInt32 carry = 0;
+                    (a0, b0) = Sub(a0, b0);
+                    (a1, b1) = Sub(a1, b1);
+                    (a2, b2) = Sub(a2, b2);
+                    (a3, b3) = Sub(a3, b3);
 
-                    while (!(IsAllZero(b0) & IsAllZero(b1) & IsAllZero(b2) & IsAllZero(b3))) {
-                        (a0, b0) = Sub(a0, b0);
-                        (a1, b1) = Sub(a1, b1);
-                        (a2, b2) = Sub(a2, b2);
-                        (a3, b3) = Sub(a3, b3);
-
-                        (b0, b1, b2, b3, carry) = CarryShiftX4(b0, b1, b2, b3, carry);
-                    }
+                    (b0, b1, b2, b3, UInt32 carry) = CarryShiftX4(b0, b1, b2, b3, 0u);
+                    (a0, a1, a2, a3, b0, b1, b2, b3, carry)
+                        = FlushCarrySubX4(a0, a1, a2, a3, b0, b1, b2, b3, carry);
 
                     StoreX4(va, a0, a1, a2, a3, va0, arr_a.Length);
                     Sub(digit + offset + ShiftIDX4, arr_a, carry);
@@ -77,14 +75,12 @@ namespace AvxUInt {
                     (a0, a1) = LoadX2(va, va0, arr_a.Length);
                     (b0, b1) = LoadX2(vb, vb0, arr_b.Length);
 
-                    UInt32 carry = 0;
+                    (a0, b0) = Sub(a0, b0);
+                    (a1, b1) = Sub(a1, b1);
 
-                    while (!(IsAllZero(b0) & IsAllZero(b1))) {
-                        (a0, b0) = Sub(a0, b0);
-                        (a1, b1) = Sub(a1, b1);
-
-                        (b0, b1, carry) = CarryShiftX2(b0, b1, carry);
-                    }
+                    (b0, b1, UInt32 carry) = CarryShiftX2(b0, b1, 0u);
+                    (a0, a1, b0, b1, carry)
+                        = FlushCarrySubX2(a0, a1, b0, b1, carry);
 
                     StoreX2(va, a0, a1, va0, arr_a.Length);
                     Sub(digit + offset + ShiftIDX2, arr_a, carry);
@@ -97,17 +93,10 @@ namespace AvxUInt {
                     a0 = Load(va, va0, arr_a.Length);
                     b0 = Load(vb, vb0, arr_b.Length);
 
-                    UInt32 carry = 0;
+                    (a0, b0) = Sub(a0, b0);
 
-                    while (!IsAllZero(b0)) {
-                        (a0, b0) = Sub(a0, b0);
-
-                        if (IsAllZero(b0)) {
-                            break;
-                        }
-
-                        (b0, carry) = CarryShift(b0, carry);
-                    }
+                    (b0, UInt32 carry) = CarryShift(b0, 0u);
+                    (a0, b0, carry) = FlushCarrySub(a0, b0, carry);
 
                     Store(va, a0, va0, arr_a.Length);
                     Sub(digit + offset + ShiftIDX1, arr_a, carry);
@@ -125,17 +114,10 @@ namespace AvxUInt {
                     a0 = MaskLoad(va, mask_a, va0, arr_a.Length);
                     b0 = MaskLoad(vb, mask_b, vb0, arr_b.Length);
 
-                    UInt32 carry = 0;
+                    (a0, b0) = Sub(a0, b0);
 
-                    while (!IsAllZero(b0)) {
-                        (a0, b0) = Sub(a0, b0);
-
-                        if (IsAllZero(b0)) {
-                            break;
-                        }
-
-                        (b0, carry) = CarryShift(b0, carry);
-                    }
+                    (b0, UInt32 carry) = CarryShift(b0, 0u);
+                    (a0, b0, carry) = FlushCarrySub(a0, b0, carry);
 
                     if (rem_a < MM256UInt32s) {
                         if (a0.GetElement((int)rem_a) > 0u) {
@@ -145,9 +127,8 @@ namespace AvxUInt {
                     }
                     else {
                         Store(va, a0, va0, arr_a.Length);
+                        Sub(digit + offset + ShiftIDX1, arr_a, carry);
                     }
-
-                    Sub(digit + offset + ShiftIDX1, arr_a, carry);
                 }
             }
         }
