@@ -2,7 +2,7 @@
 
 namespace AvxUInt {
     internal static partial class UIntUtil {
-        static UIntUtil(){
+        static UIntUtil() {
             if (!Avx2.IsSupported) {
                 throw new PlatformNotSupportedException("This platform is not supported avx2 operations.");
             }

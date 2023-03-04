@@ -1,6 +1,5 @@
 using AvxUInt;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Numerics;
 
 namespace AvxUIntTest {

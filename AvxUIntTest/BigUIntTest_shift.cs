@@ -76,7 +76,7 @@ namespace AvxUIntTest {
 
             {
                 BigUInt<N> v = new(0x12345678u);
-            
+
                 Assert.ThrowsException<OverflowException>(() => {
                     BigUInt<N> v_sft = BigUInt<N>.LeftBlockShift(v, BigUInt<N>.Length, check_overflow: true);
                 });

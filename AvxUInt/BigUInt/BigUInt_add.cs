@@ -40,7 +40,7 @@
             }
         }
 
-        public static BigUInt<M> Add<M>(BigUInt<N> a, BigUInt<N> b) where M: struct, IConstant {
+        public static BigUInt<M> Add<M>(BigUInt<N> a, BigUInt<N> b) where M : struct, IConstant {
             uint v1_digits = a.Digits, v2_digits = b.Digits;
 
             if (v1_digits >= v2_digits) {

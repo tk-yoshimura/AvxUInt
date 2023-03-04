@@ -29,7 +29,7 @@
             return ret;
         }
 
-        public static BigUInt<M> Sub<M>(BigUInt<N> a, BigUInt<N> b) where M: struct, IConstant {
+        public static BigUInt<M> Sub<M>(BigUInt<N> a, BigUInt<N> b) where M : struct, IConstant {
             BigUInt<M> ret = a.Convert<M>();
 
             UIntUtil.Sub(ret.value, b.value);

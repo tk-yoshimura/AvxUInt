@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Runtime.Intrinsics.X86;
 
 namespace AvxUInt {
     public sealed partial class BigUInt<N> : ICloneable where N : struct, IConstant {
@@ -111,7 +110,7 @@ namespace AvxUInt {
             return new BigUInt<N>(value, enable_clone: true);
         }
 
-        public BigUInt<M> Convert<M>(bool check_overflow = true) where M: struct, IConstant {
+        public BigUInt<M> Convert<M>(bool check_overflow = true) where M : struct, IConstant {
             int length_src = Length, length_dst = default(M).Value;
 
             if (!check_overflow && length_src > length_dst) {

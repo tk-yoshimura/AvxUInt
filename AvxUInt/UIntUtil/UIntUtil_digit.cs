@@ -1,6 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
-using static System.Runtime.Intrinsics.X86.Avx;
 
 namespace AvxUInt {
     internal static partial class UIntUtil {
