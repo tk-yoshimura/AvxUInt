@@ -1,4 +1,5 @@
-﻿using System.Runtime.Intrinsics;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics;
 
 namespace AvxUInt {
     internal static partial class UIntUtil {
@@ -142,6 +143,7 @@ namespace AvxUInt {
         }
 
         /// <summary>Operate uint32 array a += b &lt;&lt; offset</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe void Add(uint offset, UInt32[] arr_a, UInt32 b) {
             fixed (UInt32* va0 = arr_a) {
                 for (uint i = offset, length = (uint)arr_a.Length; i < length && b > 0u; i++) {
@@ -158,6 +160,7 @@ namespace AvxUInt {
         }
 
         /// <summary>Operate uint32 array a += b &lt;&lt; offset</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe void Add(uint offset, UInt32[] arr_a, UInt64 b) {
             if (b == 0uL) {
                 return;
