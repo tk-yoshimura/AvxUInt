@@ -50,6 +50,7 @@ namespace AvxUInt {
                 Vector256<UInt32> a0, a1, a2, a3, b0, b1, b2, b3;
 
                 uint digit = 0;
+                UInt32 carry_prev = 0u;
 
                 while (digit + MM256UInt32s * 4 <= digits_b) {
                     (a0, a1, a2, a3) = LoadX4(va, va0, arr_a.Length);
@@ -61,15 +62,16 @@ namespace AvxUInt {
                     (a3, b3) = Add(a3, b3);
 
                     (b0, b1, b2, b3, UInt32 carry) = CarryShiftX4(b0, b1, b2, b3, 0u);
+                    b0 = b0.WithElement(0, carry_prev);
                     (a0, a1, a2, a3, b0, b1, b2, b3, carry)
                         = FlushCarryAddX4(a0, a1, a2, a3, b0, b1, b2, b3, carry);
 
                     StoreX4(va, a0, a1, a2, a3, va0, arr_a.Length);
-                    Add(digit + offset + ShiftIDX4, arr_a, carry);
+                    carry_prev = carry;
 
                     va += MM256UInt32s * 4;
                     vb += MM256UInt32s * 4;
-                    digit += (int)MM256UInt32s * 4;
+                    digit += MM256UInt32s * 4;
                 }
                 if (digit + MM256UInt32s * 2 <= digits_b) {
                     (a0, a1) = LoadX2(va, va0, arr_a.Length);
@@ -79,15 +81,16 @@ namespace AvxUInt {
                     (a1, b1) = Add(a1, b1);
 
                     (b0, b1, UInt32 carry) = CarryShiftX2(b0, b1, 0u);
+                    b0 = b0.WithElement(0, carry_prev);
                     (a0, a1, b0, b1, carry)
                         = FlushCarryAddX2(a0, a1, b0, b1, carry);
 
                     StoreX2(va, a0, a1, va0, arr_a.Length);
-                    Add(digit + offset + ShiftIDX2, arr_a, carry);
+                    carry_prev = carry;
 
                     va += MM256UInt32s * 2;
                     vb += MM256UInt32s * 2;
-                    digit += (int)MM256UInt32s * 2;
+                    digit += MM256UInt32s * 2;
                 }
                 if (digit + MM256UInt32s <= digits_b) {
                     a0 = Load(va, va0, arr_a.Length);
@@ -96,14 +99,15 @@ namespace AvxUInt {
                     (a0, b0) = Add(a0, b0);
 
                     (b0, UInt32 carry) = CarryShift(b0, 0u);
+                    b0 = b0.WithElement(0, carry_prev);
                     (a0, b0, carry) = FlushCarryAdd(a0, b0, carry);
 
                     Store(va, a0, va0, arr_a.Length);
-                    Add(digit + offset + ShiftIDX1, arr_a, carry);
+                    carry_prev = carry;
 
                     va += MM256UInt32s;
                     vb += MM256UInt32s;
-                    digit += (int)MM256UInt32s;
+                    digit += MM256UInt32s;
                 }
                 if (digit < digits_b) {
                     uint rem_a = (uint)arr_a.Length - digit - offset;
@@ -117,6 +121,7 @@ namespace AvxUInt {
                     (a0, b0) = Add(a0, b0);
 
                     (b0, UInt32 carry) = CarryShift(b0, 0u);
+                    b0 = b0.WithElement(0, carry_prev);
                     (a0, b0, carry) = FlushCarryAdd(a0, b0, carry);
 
                     if (rem_a < MM256UInt32s) {
@@ -124,12 +129,16 @@ namespace AvxUInt {
                             throw new OverflowException();
                         }
                         MaskStore(va, a0, mask_a, va0, arr_a.Length);
+                        return;
                     }
                     else {
                         Store(va, a0, va0, arr_a.Length);
-                        Add(digit + offset + ShiftIDX1, arr_a, carry);
+                        digit += MM256UInt32s;
+                        carry_prev = carry;
                     }
                 }
+
+                Add(digit, arr_a, carry_prev);
             }
         }
 
