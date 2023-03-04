@@ -129,16 +129,15 @@ namespace AvxUInt {
                             throw new OverflowException();
                         }
                         MaskStore(va, a0, mask_a, va0, arr_a.Length);
-                        return;
                     }
                     else {
                         Store(va, a0, va0, arr_a.Length);
-                        digit += MM256UInt32s;
-                        carry_prev = carry;
+                        Add(digit + MM256UInt32s, arr_a, carry);
                     }
                 }
-
-                Add(digit, arr_a, carry_prev);
+                else {
+                    Add(digit, arr_a, carry_prev);
+                }
             }
         }
 
