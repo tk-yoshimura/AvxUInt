@@ -55,6 +55,7 @@ namespace AvxUInt {
 
                 Vector256<UInt32> b0 = Vector256.Create((UInt64)b).AsUInt32();
                 uint r = digits_a;
+                UInt32 carry_prev = 0u;
 
                 Vector256<UInt32> a0, a1, a2, a3, d0, d1, d2, d3, r0, r1, r2, r3, c0, c1, c2, c3;
 
@@ -77,11 +78,12 @@ namespace AvxUInt {
                     (d3, c3) = Sub(d3, r3);
 
                     (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
+                    c0 = c0.WithElement(0, carry_prev);
                     (d0, d1, d2, d3, c0, c1, c2, c3, carry)
                         = FlushCarrySubX4(d0, d1, d2, d3, c0, c1, c2, c3, carry);
 
                     StoreX4(vd, d0, d1, d2, d3, vd0, arr_dst.Length);
-                    Sub(offset + ShiftIDX4, arr_dst, carry);
+                    carry_prev = carry;
 
                     va += MM256UInt32s * 4;
                     vd += MM256UInt32s * 4;
@@ -103,11 +105,12 @@ namespace AvxUInt {
                     (d1, c1) = Sub(d1, r1);
 
                     (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
+                    c0 = c0.WithElement(0, carry_prev);
                     (d0, d1, c0, c1, carry)
                         = FlushCarrySubX2(d0, d1, c0, c1, carry);
 
                     StoreX2(vd, d0, d1, vd0, arr_dst.Length);
-                    Sub(offset + ShiftIDX2, arr_dst, carry);
+                    carry_prev = carry;
 
                     va += MM256UInt32s * 2;
                     vd += MM256UInt32s * 2;
@@ -126,10 +129,11 @@ namespace AvxUInt {
                     (d0, c0) = Sub(d0, r0);
 
                     (c0, carry) = CarryShift(c0, carry);
+                    c0 = c0.WithElement(0, carry_prev);
                     (d0, c0, carry) = FlushCarrySub(d0, c0, carry);
 
                     Store(vd, d0, vd0, arr_dst.Length);
-                    Sub(offset + ShiftIDX1, arr_dst, carry);
+                    carry_prev = carry;
 
                     va += MM256UInt32s;
                     vd += MM256UInt32s;
@@ -152,6 +156,7 @@ namespace AvxUInt {
                     (d0, c0) = Sub(d0, r0);
 
                     (c0, carry) = CarryShift(c0, carry);
+                    c0 = c0.WithElement(0, carry_prev);
                     (d0, c0, carry) = FlushCarrySub(d0, c0, carry);
 
                     if (rem_d < MM256UInt32s) {
@@ -162,8 +167,11 @@ namespace AvxUInt {
                     }
                     else {
                         Store(vd, d0, vd0, arr_dst.Length);
-                        Sub(offset + ShiftIDX1, arr_dst, carry);
+                        Sub(offset + MM256UInt32s, arr_dst, carry);
                     }
+                }
+                else {
+                    Sub(offset, arr_dst, carry_prev);
                 }
             }
         }
@@ -195,6 +203,7 @@ namespace AvxUInt {
                 Vector256<UInt32> b0 = Vector256.Create((UInt64)b_lo).AsUInt32();
                 Vector256<UInt32> b1 = Vector256.Create((UInt64)b_hi).AsUInt32();
                 uint r = digits_a;
+                UInt32 carry_lo_prev = 0u, carry_hi_prev = 0u;
 
                 Vector256<UInt32> a0, a1, a2, a3, d0, d1, d2, d3, r0, r1, r2, r3, c0, c1, c2, c3;
 
@@ -220,11 +229,12 @@ namespace AvxUInt {
                         (d3, c3) = Sub(d3, r3);
 
                         (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
+                        c0 = c0.WithElement(0, carry_lo_prev);
                         (d0, d1, d2, d3, c0, c1, c2, c3, carry)
                             = FlushCarrySubX4(d0, d1, d2, d3, c0, c1, c2, c3, carry);
 
                         StoreX4(vd, d0, d1, d2, d3, vd0, arr_dst.Length);
-                        Sub(offset + ShiftIDX4, arr_dst, carry);
+                        carry_lo_prev = carry;
                     }
 
                     /*mul hi*/
@@ -246,11 +256,12 @@ namespace AvxUInt {
                         (d3, c3) = Sub(d3, r3);
 
                         (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
+                        c0 = c0.WithElement(0, carry_hi_prev);
                         (d0, d1, d2, d3, c0, c1, c2, c3, carry)
                             = FlushCarrySubX4(d0, d1, d2, d3, c0, c1, c2, c3, carry);
 
                         StoreX4(vd + 1u, d0, d1, d2, d3, vd0, arr_dst.Length);
-                        Sub(offset + ShiftIDX4 + 1, arr_dst, carry);
+                        carry_hi_prev = carry;
                     }
 
                     va += MM256UInt32s * 4;
@@ -276,11 +287,12 @@ namespace AvxUInt {
                         (d1, c1) = Sub(d1, r1);
 
                         (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
+                        c0 = c0.WithElement(0, carry_lo_prev);
                         (d0, d1, c0, c1, carry)
                             = FlushCarrySubX2(d0, d1, c0, c1, carry);
 
                         StoreX2(vd, d0, d1, vd0, arr_dst.Length);
-                        Sub(offset + ShiftIDX2, arr_dst, carry);
+                        carry_lo_prev = carry;
                     }
 
                     /*mul hi*/
@@ -298,11 +310,12 @@ namespace AvxUInt {
                         (d1, c1) = Sub(d1, r1);
 
                         (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
+                        c0 = c0.WithElement(0, carry_hi_prev);
                         (d0, d1, c0, c1, carry)
                             = FlushCarrySubX2(d0, d1, c0, c1, carry);
 
                         StoreX2(vd + 1u, d0, d1, vd0, arr_dst.Length);
-                        Sub(offset + ShiftIDX2 + 1, arr_dst, carry);
+                        carry_hi_prev = carry;
                     }
 
                     va += MM256UInt32s * 2;
@@ -325,10 +338,11 @@ namespace AvxUInt {
                         (d0, c0) = Sub(d0, r0);
 
                         (c0, carry) = CarryShift(c0, carry);
+                        c0 = c0.WithElement(0, carry_lo_prev);
                         (d0, c0, carry) = FlushCarrySub(d0, c0, carry);
 
                         Store(vd, d0, vd0, arr_dst.Length);
-                        Sub(offset + ShiftIDX1, arr_dst, carry);
+                        carry_lo_prev = carry;
                     }
 
                     /*mul hi*/
@@ -343,10 +357,11 @@ namespace AvxUInt {
                         (d0, c0) = Sub(d0, r0);
 
                         (c0, carry) = CarryShift(c0, carry);
+                        c0 = c0.WithElement(0, carry_hi_prev);
                         (d0, c0, carry) = FlushCarrySub(d0, c0, carry);
 
                         Store(vd + 1u, d0, vd0, arr_dst.Length);
-                        Sub(offset + ShiftIDX1 + 1, arr_dst, carry);
+                        carry_hi_prev = carry;
                     }
 
                     va += MM256UInt32s;
@@ -372,6 +387,7 @@ namespace AvxUInt {
                         (d0, c0) = Sub(d0, r0);
 
                         (c0, carry) = CarryShift(c0, carry);
+                        c0 = c0.WithElement(0, carry_lo_prev);
                         (d0, c0, carry) = FlushCarrySub(d0, c0, carry);
 
                         if (rem_d < MM256UInt32s) {
@@ -382,7 +398,7 @@ namespace AvxUInt {
                         }
                         else {
                             Store(vd, d0, vd0, arr_dst.Length);
-                            Sub(offset + ShiftIDX1, arr_dst, carry);
+                            Sub(offset + MM256UInt32s, arr_dst, carry);
                         }
                     }
 
@@ -400,6 +416,7 @@ namespace AvxUInt {
                         (d0, c0) = Sub(d0, r0);
 
                         (c0, carry) = CarryShift(c0, carry);
+                        c0 = c0.WithElement(0, carry_hi_prev);
                         (d0, c0, carry) = FlushCarrySub(d0, c0, carry);
 
                         if (rem_d < MM256UInt32s) {
@@ -410,9 +427,13 @@ namespace AvxUInt {
                         }
                         else {
                             Store(vd + 1u, d0, vd0, arr_dst.Length);
-                            Sub(offset + ShiftIDX1 + 1, arr_dst, carry);
+                            Sub(offset + MM256UInt32s + 1u, arr_dst, carry);
                         }
                     }
+                }
+                else { 
+                    Sub(offset, arr_dst, carry_lo_prev);
+                    Sub(offset + 1u, arr_dst, carry_hi_prev);
                 }
             }
         }
