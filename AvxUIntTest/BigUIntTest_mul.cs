@@ -427,6 +427,8 @@ namespace AvxUIntTest {
             MulTests<N63>.MulCarryTest();
             MulTests<N64>.MulCarryTest();
             MulTests<N65>.MulCarryTest();
+            MulTests<Pow2.N128>.MulCarryTest();
+            MulTests<Pow2.N256>.MulCarryTest();
         }
     }
 }

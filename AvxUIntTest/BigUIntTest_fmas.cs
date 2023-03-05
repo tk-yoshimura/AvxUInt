@@ -132,6 +132,16 @@ namespace AvxUIntTest {
             Console.WriteLine($"{nameof(overflow_passes)}: {overflow_passes}");
         }
 
+        public static void FmaCarryTest() {
+            BigUInt<Double<N>> vc = new(Enumerable.Repeat(~0u, BigUInt<N>.Length).Concat(Enumerable.Repeat(0u, BigUInt<N>.Length)).ToArray());
+            BigUInt<N> v1 = new(Enumerable.Repeat(~0u, BigUInt<N>.Length / 2).Concat(Enumerable.Repeat(0u, BigUInt<N>.Length - BigUInt<N>.Length / 2)).ToArray());
+            BigUInt<N> v2 = new(Enumerable.Repeat(~0u, BigUInt<N>.Length - BigUInt<N>.Length / 2).Concat(Enumerable.Repeat(0u, BigUInt<N>.Length / 2)).ToArray());
+
+            BigInteger n = (BigInteger)vc + (BigInteger)v1 * (BigInteger)v2;
+
+            Assert.AreEqual(n, (BigInteger)BigUInt<N>.Fma(vc, v1, v2));
+        }
+
         public static void FmsTest() {
             Random random = new(5678);
 
@@ -259,6 +269,16 @@ namespace AvxUIntTest {
             Console.WriteLine($"{nameof(normal_passes)}: {normal_passes}");
             Console.WriteLine($"{nameof(overflow_passes)}: {overflow_passes}");
         }
+
+        public static void FmsCarryTest() {
+            BigUInt<Double<N>> vc = new(Enumerable.Repeat(0u, BigUInt<N>.Length).Concat(new UInt32[] { 1u }).Concat(Enumerable.Repeat(0u, BigUInt<N>.Length - 1)).ToArray());
+            BigUInt<N> v1 = new(Enumerable.Repeat(~0u, BigUInt<N>.Length / 2).Concat(Enumerable.Repeat(0u, BigUInt<N>.Length - BigUInt<N>.Length / 2)).ToArray());
+            BigUInt<N> v2 = new(Enumerable.Repeat(~0u, BigUInt<N>.Length - BigUInt<N>.Length / 2).Concat(Enumerable.Repeat(0u, BigUInt<N>.Length / 2)).ToArray());
+
+            BigInteger n = (BigInteger)vc - (BigInteger)v1 * (BigInteger)v2;
+
+            Assert.AreEqual(n, (BigInteger)BigUInt<N>.Fms(vc, v1, v2));
+        }
     }
 
     [TestClass]
@@ -328,6 +348,41 @@ namespace AvxUIntTest {
             FmasTests<N64>.FmaDoubleTest();
             FmasTests<N65>.FmaDoubleTest();
         }
+        
+        [TestMethod]
+        public void FmaCarryTest() {
+            FmasTests<N4>.FmaCarryTest();
+            FmasTests<N5>.FmaCarryTest();
+            FmasTests<N6>.FmaCarryTest();
+            FmasTests<N7>.FmaCarryTest();
+            FmasTests<N8>.FmaCarryTest();
+            FmasTests<N9>.FmaCarryTest();
+            FmasTests<N10>.FmaCarryTest();
+            FmasTests<N11>.FmaCarryTest();
+            FmasTests<N12>.FmaCarryTest();
+            FmasTests<N13>.FmaCarryTest();
+            FmasTests<N14>.FmaCarryTest();
+            FmasTests<N15>.FmaCarryTest();
+            FmasTests<N16>.FmaCarryTest();
+            FmasTests<N17>.FmaCarryTest();
+            FmasTests<N23>.FmaCarryTest();
+            FmasTests<N24>.FmaCarryTest();
+            FmasTests<N25>.FmaCarryTest();
+            FmasTests<N31>.FmaCarryTest();
+            FmasTests<N32>.FmaCarryTest();
+            FmasTests<N33>.FmaCarryTest();
+            FmasTests<N47>.FmaCarryTest();
+            FmasTests<N48>.FmaCarryTest();
+            FmasTests<N50>.FmaCarryTest();
+            FmasTests<N53>.FmaCarryTest();
+            FmasTests<N56>.FmaCarryTest();
+            FmasTests<N59>.FmaCarryTest();
+            FmasTests<N63>.FmaCarryTest();
+            FmasTests<N64>.FmaCarryTest();
+            FmasTests<N65>.FmaCarryTest();
+            FmasTests<Pow2.N128>.FmaCarryTest();
+            FmasTests<Pow2.N256>.FmaCarryTest();
+        }
     }
 
     [TestClass]
@@ -396,6 +451,41 @@ namespace AvxUIntTest {
             FmasTests<N63>.FmsDoubleTest();
             FmasTests<N64>.FmsDoubleTest();
             FmasTests<N65>.FmsDoubleTest();
+        }
+
+        [TestMethod]
+        public void FmsCarryTest() {
+            FmasTests<N4>.FmsCarryTest();
+            FmasTests<N5>.FmsCarryTest();
+            FmasTests<N6>.FmsCarryTest();
+            FmasTests<N7>.FmsCarryTest();
+            FmasTests<N8>.FmsCarryTest();
+            FmasTests<N9>.FmsCarryTest();
+            FmasTests<N10>.FmsCarryTest();
+            FmasTests<N11>.FmsCarryTest();
+            FmasTests<N12>.FmsCarryTest();
+            FmasTests<N13>.FmsCarryTest();
+            FmasTests<N14>.FmsCarryTest();
+            FmasTests<N15>.FmsCarryTest();
+            FmasTests<N16>.FmsCarryTest();
+            FmasTests<N17>.FmsCarryTest();
+            FmasTests<N23>.FmsCarryTest();
+            FmasTests<N24>.FmsCarryTest();
+            FmasTests<N25>.FmsCarryTest();
+            FmasTests<N31>.FmsCarryTest();
+            FmasTests<N32>.FmsCarryTest();
+            FmasTests<N33>.FmsCarryTest();
+            FmasTests<N47>.FmsCarryTest();
+            FmasTests<N48>.FmsCarryTest();
+            FmasTests<N50>.FmsCarryTest();
+            FmasTests<N53>.FmsCarryTest();
+            FmasTests<N56>.FmsCarryTest();
+            FmasTests<N59>.FmsCarryTest();
+            FmasTests<N63>.FmsCarryTest();
+            FmasTests<N64>.FmsCarryTest();
+            FmasTests<N65>.FmsCarryTest();
+            FmasTests<Pow2.N128>.FmsCarryTest();
+            FmasTests<Pow2.N256>.FmsCarryTest();
         }
     }
 }

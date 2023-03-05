@@ -420,6 +420,8 @@ namespace AvxUIntTest {
             AddTests<N63>.AddCarryTest();
             AddTests<N64>.AddCarryTest();
             AddTests<N65>.AddCarryTest();
+            AddTests<Pow2.N128>.AddCarryTest();
+            AddTests<Pow2.N256>.AddCarryTest();
         }
     }
 }

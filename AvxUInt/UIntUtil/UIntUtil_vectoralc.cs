@@ -53,7 +53,13 @@ namespace AvxUInt {
 
             Vector256<UInt32> r0 = Blend(Vector256<UInt32>.Zero, u0, 0b11111110);
 
-            carry += u0.GetElement(0);
+#if DEBUG
+            checked {
+#endif
+                carry += u0.GetElement(0);
+#if DEBUG
+            }
+#endif
 
             return (r0, carry);
         }
@@ -70,7 +76,13 @@ namespace AvxUInt {
             Vector256<UInt32> r0 = Blend(Vector256<UInt32>.Zero, u0, 0b11111110);
             Vector256<UInt32> r1 = Blend(u0, u1, 0b11111110);
 
-            carry += u1.GetElement(0);
+#if DEBUG
+            checked {
+#endif
+                carry += u1.GetElement(0);
+#if DEBUG
+            }
+#endif
 
             return (r0, r1, carry);
         }
@@ -89,7 +101,13 @@ namespace AvxUInt {
             Vector256<UInt32> r1 = Blend(u0, u1, 0b11111110);
             Vector256<UInt32> r2 = Blend(u1, u2, 0b11111110);
 
-            carry += u2.GetElement(0);
+#if DEBUG
+            checked {
+#endif
+                carry += u2.GetElement(0);
+#if DEBUG
+            }
+#endif
 
             return (r0, r1, r2, carry);
         }
@@ -110,7 +128,13 @@ namespace AvxUInt {
             Vector256<UInt32> r2 = Blend(u1, u2, 0b11111110);
             Vector256<UInt32> r3 = Blend(u2, u3, 0b11111110);
 
-            carry += u3.GetElement(0);
+#if DEBUG
+            checked {
+#endif
+                carry += u3.GetElement(0);
+#if DEBUG
+            }
+#endif
 
             return (r0, r1, r2, r3, carry);
         }

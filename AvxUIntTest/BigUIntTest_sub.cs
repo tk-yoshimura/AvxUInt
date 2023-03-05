@@ -435,6 +435,8 @@ namespace AvxUIntTest {
             SubTests<N63>.SubCarryTest();
             SubTests<N64>.SubCarryTest();
             SubTests<N65>.SubCarryTest();
+            SubTests<Pow2.N128>.SubCarryTest();
+            SubTests<Pow2.N256>.SubCarryTest();
         }
     }
 }
