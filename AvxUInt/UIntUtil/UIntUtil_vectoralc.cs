@@ -117,7 +117,7 @@ namespace AvxUInt {
 
         /// <summary>Flush add carry vector</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (Vector256<uint> r0, Vector256<uint> c0, UInt32 carry)
+        public static (Vector256<uint> r0, UInt32 carry)
             FlushCarryAdd(Vector256<uint> r0, Vector256<uint> c0, UInt32 carry) {
 
             while (!IsAllZero(c0)) {
@@ -125,12 +125,12 @@ namespace AvxUInt {
                 (c0, carry) = CarryShift(c0, carry);
             }
 
-            return (r0, c0, carry);
+            return (r0, carry);
         }
 
         /// <summary>Flush add carry vector x2</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> c0, Vector256<uint> c1, UInt32 carry)
+        public static (Vector256<uint> r0, Vector256<uint> r1, UInt32 carry)
             FlushCarryAddX2(Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> c0, Vector256<uint> c1, UInt32 carry) {
 
             while (!IsAllZero(c0)) {
@@ -139,14 +139,14 @@ namespace AvxUInt {
                 (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
             }
 
-            (r1, c1, carry) = FlushCarryAdd(r1, c1, carry);
+            (r1, carry) = FlushCarryAdd(r1, c1, carry);
 
-            return (r0, r1, c0, c1, carry);
+            return (r0, r1, carry);
         }
 
         /// <summary>Flush add carry vector x3</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> r2, Vector256<uint> c0, Vector256<uint> c1, Vector256<uint> c2, UInt32 carry)
+        public static (Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> r2, UInt32 carry)
             FlushCarryAddX3(Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> r2, Vector256<uint> c0, Vector256<uint> c1, Vector256<uint> c2, UInt32 carry) {
 
             while (!IsAllZero(c0)) {
@@ -156,14 +156,14 @@ namespace AvxUInt {
                 (c0, c1, c2, carry) = CarryShiftX3(c0, c1, c2, carry);
             }
 
-            (r1, r2, c1, c2, carry) = FlushCarryAddX2(r1, r2, c1, c2, carry);
+            (r1, r2, carry) = FlushCarryAddX2(r1, r2, c1, c2, carry);
 
-            return (r0, r1, r2, c0, c1, c2, carry);
+            return (r0, r1, r2, carry);
         }
 
         /// <summary>Flush add carry vector x4</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> r2, Vector256<uint> r3, Vector256<uint> c0, Vector256<uint> c1, Vector256<uint> c2, Vector256<uint> c3, UInt32 carry)
+        public static (Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> r2, Vector256<uint> r3, UInt32 carry)
             FlushCarryAddX4(Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> r2, Vector256<uint> r3, Vector256<uint> c0, Vector256<uint> c1, Vector256<uint> c2, Vector256<uint> c3, UInt32 carry) {
 
             while (!IsAllZero(c0)) {
@@ -174,14 +174,14 @@ namespace AvxUInt {
                 (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
             }
 
-            (r1, r2, r3, c1, c2, c3, carry) = FlushCarryAddX3(r1, r2, r3, c1, c2, c3, carry);
+            (r1, r2, r3, carry) = FlushCarryAddX3(r1, r2, r3, c1, c2, c3, carry);
 
-            return (r0, r1, r2, r3, c0, c1, c2, c3, carry);
+            return (r0, r1, r2, r3, carry);
         }
 
         /// <summary>Flush sub carry vector</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (Vector256<uint> r0, Vector256<uint> c0, UInt32 carry)
+        public static (Vector256<uint> r0, UInt32 carry)
             FlushCarrySub(Vector256<uint> r0, Vector256<uint> c0, UInt32 carry) {
 
             while (!IsAllZero(c0)) {
@@ -189,12 +189,12 @@ namespace AvxUInt {
                 (c0, carry) = CarryShift(c0, carry);
             }
 
-            return (r0, c0, carry);
+            return (r0, carry);
         }
 
         /// <summary>Flush sub carry vector x2</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> c0, Vector256<uint> c1, UInt32 carry)
+        public static (Vector256<uint> r0, Vector256<uint> r1, UInt32 carry)
             FlushCarrySubX2(Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> c0, Vector256<uint> c1, UInt32 carry) {
 
             while (!IsAllZero(c0)) {
@@ -203,14 +203,14 @@ namespace AvxUInt {
                 (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
             }
 
-            (r1, c1, carry) = FlushCarrySub(r1, c1, carry);
+            (r1, carry) = FlushCarrySub(r1, c1, carry);
 
-            return (r0, r1, c0, c1, carry);
+            return (r0, r1, carry);
         }
 
         /// <summary>Flush sub carry vector x3</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> r2, Vector256<uint> c0, Vector256<uint> c1, Vector256<uint> c2, UInt32 carry)
+        public static (Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> r2, UInt32 carry)
             FlushCarrySubX3(Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> r2, Vector256<uint> c0, Vector256<uint> c1, Vector256<uint> c2, UInt32 carry) {
 
             while (!IsAllZero(c0)) {
@@ -220,14 +220,14 @@ namespace AvxUInt {
                 (c0, c1, c2, carry) = CarryShiftX3(c0, c1, c2, carry);
             }
 
-            (r1, r2, c1, c2, carry) = FlushCarrySubX2(r1, r2, c1, c2, carry);
+            (r1, r2, carry) = FlushCarrySubX2(r1, r2, c1, c2, carry);
 
-            return (r0, r1, r2, c0, c1, c2, carry);
+            return (r0, r1, r2, carry);
         }
 
         /// <summary>Flush sub carry vector x4</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> r2, Vector256<uint> r3, Vector256<uint> c0, Vector256<uint> c1, Vector256<uint> c2, Vector256<uint> c3, UInt32 carry)
+        public static (Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> r2, Vector256<uint> r3, UInt32 carry)
             FlushCarrySubX4(Vector256<uint> r0, Vector256<uint> r1, Vector256<uint> r2, Vector256<uint> r3, Vector256<uint> c0, Vector256<uint> c1, Vector256<uint> c2, Vector256<uint> c3, UInt32 carry) {
 
             while (!IsAllZero(c0)) {
@@ -238,9 +238,9 @@ namespace AvxUInt {
                 (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
             }
 
-            (r1, r2, r3, c1, c2, c3, carry) = FlushCarrySubX3(r1, r2, r3, c1, c2, c3, carry);
+            (r1, r2, r3, carry) = FlushCarrySubX3(r1, r2, r3, c1, c2, c3, carry);
 
-            return (r0, r1, r2, r3, c0, c1, c2, c3, carry);
+            return (r0, r1, r2, r3, carry);
         }
     }
 }

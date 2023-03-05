@@ -69,8 +69,7 @@ namespace AvxUInt {
                     (r3, c3) = Mul(a3, b0);
 
                     (c0, c1, c2, c3, UInt32 carry) = CarryShiftX4(c0, c1, c2, c3, 0u);
-                    (r0, r1, r2, r3, c0, c1, c2, c3, carry)
-                        = FlushCarryAddX4(r0, r1, r2, r3, c0, c1, c2, c3, carry);
+                    (r0, r1, r2, r3, carry) = FlushCarryAddX4(r0, r1, r2, r3, c0, c1, c2, c3, carry);
 
                     (d0, c0) = Sub(d0, r0);
                     (d1, c1) = Sub(d1, r1);
@@ -79,8 +78,7 @@ namespace AvxUInt {
 
                     (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
                     c0 = c0.WithElement(0, carry_prev);
-                    (d0, d1, d2, d3, c0, c1, c2, c3, carry)
-                        = FlushCarrySubX4(d0, d1, d2, d3, c0, c1, c2, c3, carry);
+                    (d0, d1, d2, d3, carry) = FlushCarrySubX4(d0, d1, d2, d3, c0, c1, c2, c3, carry);
 
                     StoreX4(vd, d0, d1, d2, d3, vd0, arr_dst.Length);
                     carry_prev = carry;
@@ -98,16 +96,14 @@ namespace AvxUInt {
                     (r1, c1) = Mul(a1, b0);
 
                     (c0, c1, UInt32 carry) = CarryShiftX2(c0, c1, 0u);
-                    (r0, r1, c0, c1, carry)
-                        = FlushCarryAddX2(r0, r1, c0, c1, carry);
+                    (r0, r1, carry) = FlushCarryAddX2(r0, r1, c0, c1, carry);
 
                     (d0, c0) = Sub(d0, r0);
                     (d1, c1) = Sub(d1, r1);
 
                     (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
                     c0 = c0.WithElement(0, carry_prev);
-                    (d0, d1, c0, c1, carry)
-                        = FlushCarrySubX2(d0, d1, c0, c1, carry);
+                    (d0, d1, carry) = FlushCarrySubX2(d0, d1, c0, c1, carry);
 
                     StoreX2(vd, d0, d1, vd0, arr_dst.Length);
                     carry_prev = carry;
@@ -124,13 +120,13 @@ namespace AvxUInt {
                     (r0, c0) = Mul(a0, b0);
 
                     (c0, UInt32 carry) = CarryShift(c0, 0u);
-                    (r0, c0, carry) = FlushCarryAdd(r0, c0, carry);
+                    (r0, carry) = FlushCarryAdd(r0, c0, carry);
 
                     (d0, c0) = Sub(d0, r0);
 
                     (c0, carry) = CarryShift(c0, carry);
                     c0 = c0.WithElement(0, carry_prev);
-                    (d0, c0, carry) = FlushCarrySub(d0, c0, carry);
+                    (d0, carry) = FlushCarrySub(d0, c0, carry);
 
                     Store(vd, d0, vd0, arr_dst.Length);
                     carry_prev = carry;
@@ -151,13 +147,13 @@ namespace AvxUInt {
                     (r0, c0) = Mul(a0, b0);
 
                     (c0, UInt32 carry) = CarryShift(c0, 0u);
-                    (r0, c0, carry) = FlushCarryAdd(r0, c0, carry);
+                    (r0, carry) = FlushCarryAdd(r0, c0, carry);
 
                     (d0, c0) = Sub(d0, r0);
 
                     (c0, carry) = CarryShift(c0, carry);
                     c0 = c0.WithElement(0, carry_prev);
-                    (d0, c0, carry) = FlushCarrySub(d0, c0, carry);
+                    (d0, carry) = FlushCarrySub(d0, c0, carry);
 
                     if (rem_d < MM256UInt32s) {
                         if (d0.GetElement((int)rem_d) > 0u) {
@@ -220,8 +216,7 @@ namespace AvxUInt {
                         (r3, c3) = Mul(a3, b0);
 
                         (c0, c1, c2, c3, UInt32 carry) = CarryShiftX4(c0, c1, c2, c3, 0u);
-                        (r0, r1, r2, r3, c0, c1, c2, c3, carry)
-                            = FlushCarryAddX4(r0, r1, r2, r3, c0, c1, c2, c3, carry);
+                        (r0, r1, r2, r3, carry) = FlushCarryAddX4(r0, r1, r2, r3, c0, c1, c2, c3, carry);
 
                         (d0, c0) = Sub(d0, r0);
                         (d1, c1) = Sub(d1, r1);
@@ -230,8 +225,7 @@ namespace AvxUInt {
 
                         (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
                         c0 = c0.WithElement(0, carry_lo_prev);
-                        (d0, d1, d2, d3, c0, c1, c2, c3, carry)
-                            = FlushCarrySubX4(d0, d1, d2, d3, c0, c1, c2, c3, carry);
+                        (d0, d1, d2, d3, carry) = FlushCarrySubX4(d0, d1, d2, d3, c0, c1, c2, c3, carry);
 
                         StoreX4(vd, d0, d1, d2, d3, vd0, arr_dst.Length);
                         carry_lo_prev = carry;
@@ -247,8 +241,7 @@ namespace AvxUInt {
                         (r3, c3) = Mul(a3, b1);
 
                         (c0, c1, c2, c3, UInt32 carry) = CarryShiftX4(c0, c1, c2, c3, 0u);
-                        (r0, r1, r2, r3, c0, c1, c2, c3, carry)
-                            = FlushCarryAddX4(r0, r1, r2, r3, c0, c1, c2, c3, carry);
+                        (r0, r1, r2, r3, carry) = FlushCarryAddX4(r0, r1, r2, r3, c0, c1, c2, c3, carry);
 
                         (d0, c0) = Sub(d0, r0);
                         (d1, c1) = Sub(d1, r1);
@@ -257,8 +250,7 @@ namespace AvxUInt {
 
                         (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
                         c0 = c0.WithElement(0, carry_hi_prev);
-                        (d0, d1, d2, d3, c0, c1, c2, c3, carry)
-                            = FlushCarrySubX4(d0, d1, d2, d3, c0, c1, c2, c3, carry);
+                        (d0, d1, d2, d3, carry) = FlushCarrySubX4(d0, d1, d2, d3, c0, c1, c2, c3, carry);
 
                         StoreX4(vd + 1u, d0, d1, d2, d3, vd0, arr_dst.Length);
                         carry_hi_prev = carry;
@@ -280,16 +272,14 @@ namespace AvxUInt {
                         (r1, c1) = Mul(a1, b0);
 
                         (c0, c1, UInt32 carry) = CarryShiftX2(c0, c1, 0u);
-                        (r0, r1, c0, c1, carry)
-                            = FlushCarryAddX2(r0, r1, c0, c1, carry);
+                        (r0, r1, carry) = FlushCarryAddX2(r0, r1, c0, c1, carry);
 
                         (d0, c0) = Sub(d0, r0);
                         (d1, c1) = Sub(d1, r1);
 
                         (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
                         c0 = c0.WithElement(0, carry_lo_prev);
-                        (d0, d1, c0, c1, carry)
-                            = FlushCarrySubX2(d0, d1, c0, c1, carry);
+                        (d0, d1, carry) = FlushCarrySubX2(d0, d1, c0, c1, carry);
 
                         StoreX2(vd, d0, d1, vd0, arr_dst.Length);
                         carry_lo_prev = carry;
@@ -303,16 +293,14 @@ namespace AvxUInt {
                         (r1, c1) = Mul(a1, b1);
 
                         (c0, c1, UInt32 carry) = CarryShiftX2(c0, c1, 0u);
-                        (r0, r1, c0, c1, carry)
-                            = FlushCarryAddX2(r0, r1, c0, c1, carry);
+                        (r0, r1, carry) = FlushCarryAddX2(r0, r1, c0, c1, carry);
 
                         (d0, c0) = Sub(d0, r0);
                         (d1, c1) = Sub(d1, r1);
 
                         (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
                         c0 = c0.WithElement(0, carry_hi_prev);
-                        (d0, d1, c0, c1, carry)
-                            = FlushCarrySubX2(d0, d1, c0, c1, carry);
+                        (d0, d1, carry) = FlushCarrySubX2(d0, d1, c0, c1, carry);
 
                         StoreX2(vd + 1u, d0, d1, vd0, arr_dst.Length);
                         carry_hi_prev = carry;
@@ -333,13 +321,13 @@ namespace AvxUInt {
                         (r0, c0) = Mul(a0, b0);
 
                         (c0, UInt32 carry) = CarryShift(c0, 0u);
-                        (r0, c0, carry) = FlushCarryAdd(r0, c0, carry);
+                        (r0, carry) = FlushCarryAdd(r0, c0, carry);
 
                         (d0, c0) = Sub(d0, r0);
 
                         (c0, carry) = CarryShift(c0, carry);
                         c0 = c0.WithElement(0, carry_lo_prev);
-                        (d0, c0, carry) = FlushCarrySub(d0, c0, carry);
+                        (d0, carry) = FlushCarrySub(d0, c0, carry);
 
                         Store(vd, d0, vd0, arr_dst.Length);
                         carry_lo_prev = carry;
@@ -352,13 +340,13 @@ namespace AvxUInt {
                         (r0, c0) = Mul(a0, b1);
 
                         (c0, UInt32 carry) = CarryShift(c0, 0u);
-                        (r0, c0, carry) = FlushCarryAdd(r0, c0, carry);
+                        (r0, carry) = FlushCarryAdd(r0, c0, carry);
 
                         (d0, c0) = Sub(d0, r0);
 
                         (c0, carry) = CarryShift(c0, carry);
                         c0 = c0.WithElement(0, carry_hi_prev);
-                        (d0, c0, carry) = FlushCarrySub(d0, c0, carry);
+                        (d0, carry) = FlushCarrySub(d0, c0, carry);
 
                         Store(vd + 1u, d0, vd0, arr_dst.Length);
                         carry_hi_prev = carry;
@@ -382,13 +370,13 @@ namespace AvxUInt {
                         (r0, c0) = Mul(a0, b0);
 
                         (c0, UInt32 carry) = CarryShift(c0, 0u);
-                        (r0, c0, carry) = FlushCarryAdd(r0, c0, carry);
+                        (r0, carry) = FlushCarryAdd(r0, c0, carry);
 
                         (d0, c0) = Sub(d0, r0);
 
                         (c0, carry) = CarryShift(c0, carry);
                         c0 = c0.WithElement(0, carry_lo_prev);
-                        (d0, c0, carry) = FlushCarrySub(d0, c0, carry);
+                        (d0, carry) = FlushCarrySub(d0, c0, carry);
 
                         if (rem_d < MM256UInt32s) {
                             if (d0.GetElement((int)rem_d) > 0u) {
@@ -411,13 +399,13 @@ namespace AvxUInt {
                         (r0, c0) = Mul(a0, b1);
 
                         (c0, UInt32 carry) = CarryShift(c0, 0u);
-                        (r0, c0, carry) = FlushCarryAdd(r0, c0, carry);
+                        (r0, carry) = FlushCarryAdd(r0, c0, carry);
 
                         (d0, c0) = Sub(d0, r0);
 
                         (c0, carry) = CarryShift(c0, carry);
                         c0 = c0.WithElement(0, carry_hi_prev);
-                        (d0, c0, carry) = FlushCarrySub(d0, c0, carry);
+                        (d0, carry) = FlushCarrySub(d0, c0, carry);
 
                         if (rem_d < MM256UInt32s) {
                             if (d0.GetElement((int)rem_d) > 0u) {
