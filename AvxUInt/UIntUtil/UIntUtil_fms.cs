@@ -419,7 +419,7 @@ namespace AvxUInt {
                         }
                     }
                 }
-                else { 
+                else {
                     Sub(offset, arr_dst, carry_lo_prev);
                     Sub(offset + 1u, arr_dst, carry_hi_prev);
                 }

@@ -226,6 +226,29 @@ namespace AvxUIntTest {
             Console.WriteLine($"{nameof(overflow_passes)}: {overflow_passes}");
         }
 
+        public static void SubCarryTest() {
+            BigUInt<N> v1 = new(Enumerable.Repeat(0u, BigUInt<N>.Length - 1).Concat(new UInt32[] { 0x80000000u }).ToArray());
+            BigUInt<N> v2 = new(Enumerable.Repeat(~0u, BigUInt<N>.Length - 1).Concat(new UInt32[] { 0x7FFFFFFFu }).ToArray());
+            BigUInt<N> v3 = new((new UInt32[] { 1u }).Concat(Enumerable.Repeat(0u, BigUInt<N>.Length - 2)).Concat(new UInt32[] { 0x80000000u }).ToArray());
+            BigUInt<N> v4 = new((new UInt32[] { 1u }).Concat(Enumerable.Repeat(0u, BigUInt<N>.Length - 2)).Concat(new UInt32[] { 0x7FFFFFFFu }).ToArray());
+
+            Assert.AreEqual(1u, v1 - v2);
+            Assert.AreEqual(1u, v3 - v1);
+            Assert.AreEqual(new(Enumerable.Repeat(~0u, BigUInt<N>.Length - 1).Concat(new UInt32[] { 0u }).ToArray()), v1 - v4);
+
+            Assert.ThrowsException<OverflowException>(() => {
+                _ = v2 - v1;
+            });
+
+            Assert.ThrowsException<OverflowException>(() => {
+                _ = v1 - v3;
+            });
+
+            Assert.ThrowsException<OverflowException>(() => {
+                _ = v4 - v1;
+            });
+        }
+
         private static void NormalTest(BigInteger n, BigUInt<N> v1, BigUInt<N> v2, BigInteger n1, BigInteger n2) {
             Assert.AreEqual(n, (BigInteger)(v1 - v2), $"{n1}-{n2}");
 
@@ -379,6 +402,39 @@ namespace AvxUIntTest {
             SubTests<N63>.SubBlockTest();
             SubTests<N64>.SubBlockTest();
             SubTests<N65>.SubBlockTest();
+        }
+
+        [TestMethod]
+        public void SubCarryTest() {
+            SubTests<N4>.SubCarryTest();
+            SubTests<N5>.SubCarryTest();
+            SubTests<N6>.SubCarryTest();
+            SubTests<N7>.SubCarryTest();
+            SubTests<N8>.SubCarryTest();
+            SubTests<N9>.SubCarryTest();
+            SubTests<N10>.SubCarryTest();
+            SubTests<N11>.SubCarryTest();
+            SubTests<N12>.SubCarryTest();
+            SubTests<N13>.SubCarryTest();
+            SubTests<N14>.SubCarryTest();
+            SubTests<N15>.SubCarryTest();
+            SubTests<N16>.SubCarryTest();
+            SubTests<N17>.SubCarryTest();
+            SubTests<N23>.SubCarryTest();
+            SubTests<N24>.SubCarryTest();
+            SubTests<N25>.SubCarryTest();
+            SubTests<N31>.SubCarryTest();
+            SubTests<N32>.SubCarryTest();
+            SubTests<N33>.SubCarryTest();
+            SubTests<N47>.SubCarryTest();
+            SubTests<N48>.SubCarryTest();
+            SubTests<N50>.SubCarryTest();
+            SubTests<N53>.SubCarryTest();
+            SubTests<N56>.SubCarryTest();
+            SubTests<N59>.SubCarryTest();
+            SubTests<N63>.SubCarryTest();
+            SubTests<N64>.SubCarryTest();
+            SubTests<N65>.SubCarryTest();
         }
     }
 }

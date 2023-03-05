@@ -214,6 +214,26 @@ namespace AvxUIntTest {
             Console.WriteLine($"{nameof(overflow_passes)}: {overflow_passes}");
         }
 
+        public static void AddCarryTest() {
+            BigUInt<N> v1 = new(Enumerable.Repeat(~0u, BigUInt<N>.Length - 1).Concat(new UInt32[] { 0x7FFFFFFFu }).ToArray());
+            BigUInt<N> v2 = new((new UInt32[BigUInt<N>.Length]).Select((_, idx) => ((idx & 1) == 0) ? 1u : ~0u).ToArray());
+            BigUInt<N> v3 = new((new UInt32[BigUInt<N>.Length]).Select((_, idx) => ((idx & 1) == 0) ? ~0u : 0u).ToArray());
+            BigUInt<N> v4 = new((new UInt32[] { 0x80000000u }).Concat(Enumerable.Repeat(~0u, BigUInt<N>.Length - 2)).Concat(new UInt32[] { 0x7FFFFFFFu }).ToArray());
+            BigUInt<N> v5 = new((new UInt32[] { 0x80000000u }).Concat(Enumerable.Repeat(0u, BigUInt<N>.Length - 2)).Concat(new UInt32[] { 0x7FFFFFFFu }).ToArray());
+
+            Assert.AreEqual(BigUInt<N>.Full - 1u, v1 + v1);
+            Assert.AreEqual(new(Enumerable.Repeat(0u, BigUInt<N>.Length - 1).Concat(new UInt32[] { ~0u }).ToArray()), v4 + v5);
+            Assert.AreEqual(new(Enumerable.Repeat(0u, BigUInt<N>.Length - 1).Concat(new UInt32[] { ~0u }).ToArray()), v5 + v4);
+
+            Assert.ThrowsException<OverflowException>(() => {
+                _ = v2 + v3;
+            });
+
+            Assert.ThrowsException<OverflowException>(() => {
+                _ = v3 + v2;
+            });
+        }
+
         private static void NormalTest(BigInteger n, BigUInt<N> v1, BigUInt<N> v2, BigInteger n1, BigInteger n2) {
             Assert.AreEqual(n, (BigInteger)(v1 + v2), $"{n1}+{n2}");
 
@@ -367,6 +387,39 @@ namespace AvxUIntTest {
             AddTests<N63>.AddBlockTest();
             AddTests<N64>.AddBlockTest();
             AddTests<N65>.AddBlockTest();
+        }
+
+        [TestMethod]
+        public void AddCarryTest() {
+            AddTests<N4>.AddCarryTest();
+            AddTests<N5>.AddCarryTest();
+            AddTests<N6>.AddCarryTest();
+            AddTests<N7>.AddCarryTest();
+            AddTests<N8>.AddCarryTest();
+            AddTests<N9>.AddCarryTest();
+            AddTests<N10>.AddCarryTest();
+            AddTests<N11>.AddCarryTest();
+            AddTests<N12>.AddCarryTest();
+            AddTests<N13>.AddCarryTest();
+            AddTests<N14>.AddCarryTest();
+            AddTests<N15>.AddCarryTest();
+            AddTests<N16>.AddCarryTest();
+            AddTests<N17>.AddCarryTest();
+            AddTests<N23>.AddCarryTest();
+            AddTests<N24>.AddCarryTest();
+            AddTests<N25>.AddCarryTest();
+            AddTests<N31>.AddCarryTest();
+            AddTests<N32>.AddCarryTest();
+            AddTests<N33>.AddCarryTest();
+            AddTests<N47>.AddCarryTest();
+            AddTests<N48>.AddCarryTest();
+            AddTests<N50>.AddCarryTest();
+            AddTests<N53>.AddCarryTest();
+            AddTests<N56>.AddCarryTest();
+            AddTests<N59>.AddCarryTest();
+            AddTests<N63>.AddCarryTest();
+            AddTests<N64>.AddCarryTest();
+            AddTests<N65>.AddCarryTest();
         }
     }
 }

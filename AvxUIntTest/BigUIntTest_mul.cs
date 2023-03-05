@@ -232,6 +232,15 @@ namespace AvxUIntTest {
             Console.WriteLine($"{nameof(overflow_passes)}: {overflow_passes}");
         }
 
+        public static void MulCarryTest() {
+            BigUInt<N> v1 = new(Enumerable.Repeat(~0u, BigUInt<N>.Length / 2).Concat(Enumerable.Repeat(0u, BigUInt<N>.Length - BigUInt<N>.Length / 2)).ToArray());
+            BigUInt<N> v2 = new(Enumerable.Repeat(~0u, BigUInt<N>.Length - BigUInt<N>.Length / 2).Concat(Enumerable.Repeat(0u, BigUInt<N>.Length / 2)).ToArray());
+
+            BigInteger n = (BigInteger)v1 * (BigInteger)v2;
+
+            Assert.AreEqual(n, (BigInteger)(v1 * v2));
+        }
+
         private static void NormalTest(BigInteger n, BigUInt<N> v1, BigUInt<N> v2, BigInteger n1, BigInteger n2) {
             Assert.AreEqual(n, (BigInteger)(v1 * v2), $"{n1}*{n2}");
 
@@ -385,6 +394,39 @@ namespace AvxUIntTest {
             MulTests<N63>.MulBlockTest();
             MulTests<N64>.MulBlockTest();
             MulTests<N65>.MulBlockTest();
+        }
+
+        [TestMethod]
+        public void MulCarryTest() {
+            MulTests<N4>.MulCarryTest();
+            MulTests<N5>.MulCarryTest();
+            MulTests<N6>.MulCarryTest();
+            MulTests<N7>.MulCarryTest();
+            MulTests<N8>.MulCarryTest();
+            MulTests<N9>.MulCarryTest();
+            MulTests<N10>.MulCarryTest();
+            MulTests<N11>.MulCarryTest();
+            MulTests<N12>.MulCarryTest();
+            MulTests<N13>.MulCarryTest();
+            MulTests<N14>.MulCarryTest();
+            MulTests<N15>.MulCarryTest();
+            MulTests<N16>.MulCarryTest();
+            MulTests<N17>.MulCarryTest();
+            MulTests<N23>.MulCarryTest();
+            MulTests<N24>.MulCarryTest();
+            MulTests<N25>.MulCarryTest();
+            MulTests<N31>.MulCarryTest();
+            MulTests<N32>.MulCarryTest();
+            MulTests<N33>.MulCarryTest();
+            MulTests<N47>.MulCarryTest();
+            MulTests<N48>.MulCarryTest();
+            MulTests<N50>.MulCarryTest();
+            MulTests<N53>.MulCarryTest();
+            MulTests<N56>.MulCarryTest();
+            MulTests<N59>.MulCarryTest();
+            MulTests<N63>.MulCarryTest();
+            MulTests<N64>.MulCarryTest();
+            MulTests<N65>.MulCarryTest();
         }
     }
 }
