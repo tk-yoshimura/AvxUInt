@@ -132,6 +132,13 @@ namespace AvxUIntTest {
                 BigUInt<N> b = new(bits, enable_clone: false);
 
                 vs.Add((b, (BigInteger)b));
+            }            
+            for (int i = 0; i < 64; i++) {
+                UInt32[] bits = UIntUtil.Random(random, BigUInt<N>.Length, UIntUtil.UInt64Bits);
+
+                BigUInt<N> b = new(bits, enable_clone: false);
+
+                vs.Add((b, (BigInteger)b));
             }
             vs.Add((BigUInt<N>.Full, (BigInteger)BigUInt<N>.Full));
             vs.Add((BigUInt<N>.Zero, (BigInteger)BigUInt<N>.Zero));
@@ -155,7 +162,11 @@ namespace AvxUIntTest {
                     if (b > 0) {
                         BigInteger n = a / b + (((a % b) * 2 >= b) ? 1 : 0);
 
-                        Assert.AreEqual(n, (BigInteger)BigUInt<N>.RoundDiv(va, vb), $"{va}*{vb}");
+                        Assert.AreEqual(n, (BigInteger)BigUInt<N>.RoundDiv(va, vb), $"{va}/{vb}");
+
+                        if (vb.Digits <= 2) {
+                            Assert.AreEqual(n, (BigInteger)BigUInt<N>.RoundDiv(va, UIntUtil.Pack(vb.Value[1], vb.Value[0])), $"{va}/{vb}");
+                        }
 
                         normal_passes++;
                     }
