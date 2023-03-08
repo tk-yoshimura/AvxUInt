@@ -234,6 +234,38 @@ namespace AvxUIntTest {
             });
         }
 
+        public static void AddShiftTest() {
+            BigUInt<N> v = new((new UInt32[BigUInt<N>.Length]).Select((_, idx) => ((idx & 1) == 0) ? ~0u : 0u).ToArray());
+            UInt64 ui = 0x9234567893568135uL;
+            BigInteger maxn = BigUInt<N>.Full;
+
+            Console.WriteLine($"length={BigUInt<N>.Length}");
+
+            int normal_passes = 0, overflow_passes = 0;
+
+            for (int sft = -40; sft < BigUInt<N>.Bits + 32; sft++) {
+                BigInteger n = (BigInteger)v + ((sft >= 0) ? (BigInteger)ui << sft : (BigInteger)ui >> (-sft));
+
+                if (n <= maxn) {
+                    BigUInt<N> u = BigUInt<N>.Add(v, ui, sft);
+
+                    Assert.AreEqual(n, (BigInteger)u, $"{sft}");
+
+                    normal_passes++;
+                }
+                else {
+                    Assert.ThrowsException<OverflowException>(() => {
+                        _ = BigUInt<N>.Add(v, ui, sft);
+                    }, $"{sft}");
+
+                    overflow_passes++;
+                }
+            }
+
+            Console.WriteLine($"{nameof(normal_passes)}: {normal_passes}");
+            Console.WriteLine($"{nameof(overflow_passes)}: {overflow_passes}");
+        }
+
         private static void NormalTest(BigInteger n, BigUInt<N> v1, BigUInt<N> v2, BigInteger n1, BigInteger n2) {
             Assert.AreEqual(n, (BigInteger)(v1 + v2), $"{n1}+{n2}");
 
@@ -422,6 +454,41 @@ namespace AvxUIntTest {
             AddTests<N65>.AddCarryTest();
             AddTests<Pow2.N128>.AddCarryTest();
             AddTests<Pow2.N256>.AddCarryTest();
+        }
+
+        [TestMethod]
+        public void AddShiftTest() {
+            AddTests<N4>.AddShiftTest();
+            AddTests<N5>.AddShiftTest();
+            AddTests<N6>.AddShiftTest();
+            AddTests<N7>.AddShiftTest();
+            AddTests<N8>.AddShiftTest();
+            AddTests<N9>.AddShiftTest();
+            AddTests<N10>.AddShiftTest();
+            AddTests<N11>.AddShiftTest();
+            AddTests<N12>.AddShiftTest();
+            AddTests<N13>.AddShiftTest();
+            AddTests<N14>.AddShiftTest();
+            AddTests<N15>.AddShiftTest();
+            AddTests<N16>.AddShiftTest();
+            AddTests<N17>.AddShiftTest();
+            AddTests<N23>.AddShiftTest();
+            AddTests<N24>.AddShiftTest();
+            AddTests<N25>.AddShiftTest();
+            AddTests<N31>.AddShiftTest();
+            AddTests<N32>.AddShiftTest();
+            AddTests<N33>.AddShiftTest();
+            AddTests<N47>.AddShiftTest();
+            AddTests<N48>.AddShiftTest();
+            AddTests<N50>.AddShiftTest();
+            AddTests<N53>.AddShiftTest();
+            AddTests<N56>.AddShiftTest();
+            AddTests<N59>.AddShiftTest();
+            AddTests<N63>.AddShiftTest();
+            AddTests<N64>.AddShiftTest();
+            AddTests<N65>.AddShiftTest();
+            AddTests<Pow2.N128>.AddShiftTest();
+            AddTests<Pow2.N256>.AddShiftTest();
         }
     }
 }

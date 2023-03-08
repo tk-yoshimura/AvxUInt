@@ -249,6 +249,37 @@ namespace AvxUIntTest {
             });
         }
 
+        public static void SubShiftTest() {
+            BigUInt<N> v = new((new UInt32[BigUInt<N>.Length]).Select((_, idx) => ((idx & 1) == 0) ? ~0u : 0u).ToArray());
+            UInt64 ui = 0x9234567893568135uL;
+
+            Console.WriteLine($"length={BigUInt<N>.Length}");
+
+            int normal_passes = 0, overflow_passes = 0;
+
+            for (int sft = -40; sft < BigUInt<N>.Bits + 32; sft++) {
+                BigInteger n = (BigInteger)v - ((sft >= 0) ? (BigInteger)ui << sft : (BigInteger)ui >> (-sft));
+
+                if (n >= 0) {
+                    BigUInt<N> u = BigUInt<N>.Sub(v, ui, sft);
+
+                    Assert.AreEqual(n, (BigInteger)u, $"{sft}");
+
+                    normal_passes++;
+                }
+                else {
+                    Assert.ThrowsException<OverflowException>(() => {
+                        _ = BigUInt<N>.Sub(v, ui, sft);
+                    }, $"{sft}");
+
+                    overflow_passes++;
+                }
+            }
+
+            Console.WriteLine($"{nameof(normal_passes)}: {normal_passes}");
+            Console.WriteLine($"{nameof(overflow_passes)}: {overflow_passes}");
+        }
+
         private static void NormalTest(BigInteger n, BigUInt<N> v1, BigUInt<N> v2, BigInteger n1, BigInteger n2) {
             Assert.AreEqual(n, (BigInteger)(v1 - v2), $"{n1}-{n2}");
 
@@ -437,6 +468,41 @@ namespace AvxUIntTest {
             SubTests<N65>.SubCarryTest();
             SubTests<Pow2.N128>.SubCarryTest();
             SubTests<Pow2.N256>.SubCarryTest();
+        }
+
+        [TestMethod]
+        public void SubShiftTest() {
+            SubTests<N4>.SubShiftTest();
+            SubTests<N5>.SubShiftTest();
+            SubTests<N6>.SubShiftTest();
+            SubTests<N7>.SubShiftTest();
+            SubTests<N8>.SubShiftTest();
+            SubTests<N9>.SubShiftTest();
+            SubTests<N10>.SubShiftTest();
+            SubTests<N11>.SubShiftTest();
+            SubTests<N12>.SubShiftTest();
+            SubTests<N13>.SubShiftTest();
+            SubTests<N14>.SubShiftTest();
+            SubTests<N15>.SubShiftTest();
+            SubTests<N16>.SubShiftTest();
+            SubTests<N17>.SubShiftTest();
+            SubTests<N23>.SubShiftTest();
+            SubTests<N24>.SubShiftTest();
+            SubTests<N25>.SubShiftTest();
+            SubTests<N31>.SubShiftTest();
+            SubTests<N32>.SubShiftTest();
+            SubTests<N33>.SubShiftTest();
+            SubTests<N47>.SubShiftTest();
+            SubTests<N48>.SubShiftTest();
+            SubTests<N50>.SubShiftTest();
+            SubTests<N53>.SubShiftTest();
+            SubTests<N56>.SubShiftTest();
+            SubTests<N59>.SubShiftTest();
+            SubTests<N63>.SubShiftTest();
+            SubTests<N64>.SubShiftTest();
+            SubTests<N65>.SubShiftTest();
+            SubTests<Pow2.N128>.SubShiftTest();
+            SubTests<Pow2.N256>.SubShiftTest();
         }
     }
 }
