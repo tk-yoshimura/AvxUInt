@@ -7,7 +7,9 @@ namespace AvxUIntTest {
         public static void LeftShiftTest() {
             Random random = new(1234);
 
-            for (int sft = 0; sft < BigUInt<N>.Bits; sft++) {
+            BigInteger maxn = BigUInt<N>.Full; 
+
+            for (int sft = 0; sft <= BigUInt<N>.Bits + 128; sft++) {
                 UInt32[] bits = UIntUtil.Random(random, BigUInt<N>.Length, BigUInt<N>.Bits - sft);
 
                 BigUInt<N> v = new(bits, enable_clone: false);
@@ -16,10 +18,14 @@ namespace AvxUIntTest {
                 BigUInt<N> v_sft = v << sft;
                 BigInteger bi_sft = bi << sft;
 
+                BigUInt<N> v_sft_uncheckoverflow = BigUInt<N>.LeftShift(v, sft, check_overflow: false);
+                BigInteger bi_sft_uncheckoverflow = (bi << sft) & maxn;
+
                 Console.WriteLine(sft);
                 Console.WriteLine(v.ToHexcode());
                 Console.WriteLine(v_sft.ToHexcode());
                 Assert.AreEqual(bi_sft, v_sft);
+                Assert.AreEqual(bi_sft_uncheckoverflow, v_sft_uncheckoverflow);
 
                 Console.Write("\n");
             }
@@ -41,7 +47,7 @@ namespace AvxUIntTest {
             BigUInt<N> v = new(bits, enable_clone: false);
             BigInteger bi = v;
 
-            for (int sft = 0; sft <= BigUInt<N>.Bits + 4; sft++) {
+            for (int sft = 0; sft <= BigUInt<N>.Bits + 128; sft++) {
                 BigUInt<N> v_sft = v >> sft;
                 BigInteger bi_sft = bi >> sft;
 
@@ -57,7 +63,9 @@ namespace AvxUIntTest {
         public static void LeftBlockShiftTest() {
             Random random = new(1234);
 
-            for (int sft = 0; sft < BigUInt<N>.Length; sft++) {
+            BigInteger maxn = BigUInt<N>.Full; 
+
+            for (int sft = 0; sft <= BigUInt<N>.Length + 4; sft++) {
                 UInt32[] bits = UIntUtil.Random(random, BigUInt<N>.Length, BigUInt<N>.Bits - sft * UIntUtil.UInt32Bits);
 
                 BigUInt<N> v = new(bits, enable_clone: false);
@@ -66,10 +74,14 @@ namespace AvxUIntTest {
                 BigUInt<N> v_sft = BigUInt<N>.LeftBlockShift(v, sft);
                 BigInteger bi_sft = bi << (sft * UIntUtil.UInt32Bits);
 
+                BigUInt<N> v_sft_uncheckoverflow = BigUInt<N>.LeftBlockShift(v, sft, check_overflow: false);
+                BigInteger bi_sft_uncheckoverflow = (bi << (sft * UIntUtil.UInt32Bits)) & maxn;
+
                 Console.WriteLine(sft);
                 Console.WriteLine(v.ToHexcode());
                 Console.WriteLine(v_sft.ToHexcode());
                 Assert.AreEqual(bi_sft, v_sft);
+                Assert.AreEqual(bi_sft_uncheckoverflow, v_sft_uncheckoverflow);
 
                 Console.Write("\n");
             }
