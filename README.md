@@ -2,7 +2,7 @@
  AVX Accelerated BigUInt Arithmetic Implements
 
 ## Requirement
- .NET 6.0
+ .NET 8.0
 
 ## Usage
 ```csharp
