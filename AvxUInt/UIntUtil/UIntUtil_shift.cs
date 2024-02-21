@@ -10,9 +10,7 @@ namespace AvxUInt {
 
         /// <summary>Shift uint32 array v &lt;&lt;= sft</summary>
         public static unsafe void LeftShift(UInt32[] value, int sft, bool check_overflow = false) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
 
             int sft_block = sft / UInt32Bits, sft_rem = sft % UInt32Bits;
 
@@ -92,9 +90,7 @@ namespace AvxUInt {
 
         /// <summary>Shift uint32 array v &gt;&gt;= sft</summary>
         public static unsafe void RightShift(UInt32[] value, int sft) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
 
             int sft_block = sft / UInt32Bits, sft_rem = sft % UInt32Bits;
 
@@ -173,9 +169,7 @@ namespace AvxUInt {
         /// <summary>Shift uint32 array v &lt;&lt;= sft * UInt32Bits</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe void LeftBlockShift(UInt32[] value, int sft, bool check_overflow = false) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
 
             if (check_overflow && checked(sft + Digits(value)) > value.Length) {
                 throw new OverflowException();
@@ -221,9 +215,7 @@ namespace AvxUInt {
 
         /// <summary>Shift uint32 array v &gt;&gt;= sft * UInt32Bits</summary>
         public static unsafe void RightBlockShift(UInt32[] value, int sft) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
 
             if (sft >= value.Length) {
                 Zeroset(value);
@@ -266,9 +258,7 @@ namespace AvxUInt {
 
         /// <summary>Shift uint32 array v &gt;&gt;= sft with round</summary>
         public static unsafe void RightRoundShift(UInt32[] value, int sft) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
             if (sft == 0) {
                 return;
             }
@@ -293,9 +283,7 @@ namespace AvxUInt {
 
         /// <summary>Shift uint32 array v &gt;&gt;= sft with round</summary>
         public static unsafe void RightRoundBlockShift(UInt32[] value, int sft) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
             if (sft == 0) {
                 return;
             }
