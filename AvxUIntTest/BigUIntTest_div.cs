@@ -282,6 +282,11 @@ namespace AvxUIntTest {
             DivTests<N15>.DivTest();
             DivTests<N16>.DivTest();
             DivTests<N17>.DivTest();
+            DivTests<N18>.DivTest();
+            DivTests<N19>.DivTest();
+            DivTests<N20>.DivTest();
+            DivTests<N21>.DivTest();
+            DivTests<N22>.DivTest();
             DivTests<N23>.DivTest();
             DivTests<N24>.DivTest();
             DivTests<N25>.DivTest();
@@ -315,6 +320,11 @@ namespace AvxUIntTest {
             DivTests<N15>.DivFullTest();
             DivTests<N16>.DivFullTest();
             DivTests<N17>.DivFullTest();
+            DivTests<N18>.DivFullTest();
+            DivTests<N19>.DivFullTest();
+            DivTests<N20>.DivFullTest();
+            DivTests<N21>.DivFullTest();
+            DivTests<N22>.DivFullTest();
             DivTests<N23>.DivFullTest();
             DivTests<N24>.DivFullTest();
             DivTests<N25>.DivFullTest();
@@ -348,6 +358,11 @@ namespace AvxUIntTest {
             DivTests<N15>.DivSparseTest();
             DivTests<N16>.DivSparseTest();
             DivTests<N17>.DivSparseTest();
+            DivTests<N18>.DivSparseTest();
+            DivTests<N19>.DivSparseTest();
+            DivTests<N20>.DivSparseTest();
+            DivTests<N21>.DivSparseTest();
+            DivTests<N22>.DivSparseTest();
             DivTests<N23>.DivSparseTest();
             DivTests<N24>.DivSparseTest();
             DivTests<N25>.DivSparseTest();
@@ -381,6 +396,11 @@ namespace AvxUIntTest {
             DivTests<N15>.DivBlockTest();
             DivTests<N16>.DivBlockTest();
             DivTests<N17>.DivBlockTest();
+            DivTests<N18>.DivBlockTest();
+            DivTests<N19>.DivBlockTest();
+            DivTests<N20>.DivBlockTest();
+            DivTests<N21>.DivBlockTest();
+            DivTests<N22>.DivBlockTest();
             DivTests<N23>.DivBlockTest();
             DivTests<N24>.DivBlockTest();
             DivTests<N25>.DivBlockTest();

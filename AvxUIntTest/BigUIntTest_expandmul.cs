@@ -67,6 +67,11 @@ namespace AvxUIntTest {
             ExpandMulTests<N15>.ExpandMulTest();
             ExpandMulTests<N16>.ExpandMulTest();
             ExpandMulTests<N17>.ExpandMulTest();
+            ExpandMulTests<N18>.ExpandMulTest();
+            ExpandMulTests<N19>.ExpandMulTest();
+            ExpandMulTests<N20>.ExpandMulTest();
+            ExpandMulTests<N21>.ExpandMulTest();
+            ExpandMulTests<N22>.ExpandMulTest();
             ExpandMulTests<N23>.ExpandMulTest();
             ExpandMulTests<N24>.ExpandMulTest();
             ExpandMulTests<N25>.ExpandMulTest();

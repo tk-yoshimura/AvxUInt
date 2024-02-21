@@ -133,6 +133,11 @@ namespace AvxUIntTest {
         [TestMethod]
         public void EqualN32Test() {
             CmpTests<N17>.EqualTest();
+            CmpTests<N18>.EqualTest();
+            CmpTests<N19>.EqualTest();
+            CmpTests<N20>.EqualTest();
+            CmpTests<N21>.EqualTest();
+            CmpTests<N22>.EqualTest();
             CmpTests<N23>.EqualTest();
             CmpTests<N24>.EqualTest();
             CmpTests<N25>.EqualTest();
@@ -178,6 +183,11 @@ namespace AvxUIntTest {
         [TestMethod]
         public void LessThanOrEqualN32Test() {
             CmpTests<N17>.LessThanOrEqualTest();
+            CmpTests<N18>.LessThanOrEqualTest();
+            CmpTests<N19>.LessThanOrEqualTest();
+            CmpTests<N20>.LessThanOrEqualTest();
+            CmpTests<N21>.LessThanOrEqualTest();
+            CmpTests<N22>.LessThanOrEqualTest();
             CmpTests<N23>.LessThanOrEqualTest();
             CmpTests<N24>.LessThanOrEqualTest();
             CmpTests<N25>.LessThanOrEqualTest();
@@ -223,6 +233,11 @@ namespace AvxUIntTest {
         [TestMethod]
         public void GreaterThanOrEqualN32Test() {
             CmpTests<N17>.GreaterThanOrEqualTest();
+            CmpTests<N18>.GreaterThanOrEqualTest();
+            CmpTests<N19>.GreaterThanOrEqualTest();
+            CmpTests<N20>.GreaterThanOrEqualTest();
+            CmpTests<N21>.GreaterThanOrEqualTest();
+            CmpTests<N22>.GreaterThanOrEqualTest();
             CmpTests<N23>.GreaterThanOrEqualTest();
             CmpTests<N24>.GreaterThanOrEqualTest();
             CmpTests<N25>.GreaterThanOrEqualTest();
@@ -268,6 +283,11 @@ namespace AvxUIntTest {
         [TestMethod]
         public void NotEqualN32Test() {
             CmpTests<N17>.NotEqualTest();
+            CmpTests<N18>.NotEqualTest();
+            CmpTests<N19>.NotEqualTest();
+            CmpTests<N20>.NotEqualTest();
+            CmpTests<N21>.NotEqualTest();
+            CmpTests<N22>.NotEqualTest();
             CmpTests<N23>.NotEqualTest();
             CmpTests<N24>.NotEqualTest();
             CmpTests<N25>.NotEqualTest();
@@ -300,6 +320,11 @@ namespace AvxUIntTest {
         [TestMethod]
         public void LessThanN32Test() {
             CmpTests<N17>.LessThanTest();
+            CmpTests<N18>.LessThanTest();
+            CmpTests<N19>.LessThanTest();
+            CmpTests<N20>.LessThanTest();
+            CmpTests<N21>.LessThanTest();
+            CmpTests<N22>.LessThanTest();
             CmpTests<N23>.LessThanTest();
             CmpTests<N24>.LessThanTest();
             CmpTests<N25>.LessThanTest();
@@ -332,6 +357,11 @@ namespace AvxUIntTest {
         [TestMethod]
         public void GreaterThanN32Test() {
             CmpTests<N17>.GreaterThanTest();
+            CmpTests<N18>.GreaterThanTest();
+            CmpTests<N19>.GreaterThanTest();
+            CmpTests<N20>.GreaterThanTest();
+            CmpTests<N21>.GreaterThanTest();
+            CmpTests<N22>.GreaterThanTest();
             CmpTests<N23>.GreaterThanTest();
             CmpTests<N24>.GreaterThanTest();
             CmpTests<N25>.GreaterThanTest();
@@ -364,6 +394,11 @@ namespace AvxUIntTest {
         [TestMethod]
         public void IsZeroN32Test() {
             CmpTests<N17>.IsZeroTest();
+            CmpTests<N18>.IsZeroTest();
+            CmpTests<N19>.IsZeroTest();
+            CmpTests<N20>.IsZeroTest();
+            CmpTests<N21>.IsZeroTest();
+            CmpTests<N22>.IsZeroTest();
             CmpTests<N23>.IsZeroTest();
             CmpTests<N24>.IsZeroTest();
             CmpTests<N25>.IsZeroTest();
@@ -396,6 +431,11 @@ namespace AvxUIntTest {
         [TestMethod]
         public void IsFullN32Test() {
             CmpTests<N17>.IsFullTest();
+            CmpTests<N18>.IsFullTest();
+            CmpTests<N19>.IsFullTest();
+            CmpTests<N20>.IsFullTest();
+            CmpTests<N21>.IsFullTest();
+            CmpTests<N22>.IsFullTest();
             CmpTests<N23>.IsFullTest();
             CmpTests<N24>.IsFullTest();
             CmpTests<N25>.IsFullTest();

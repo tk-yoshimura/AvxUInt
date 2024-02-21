@@ -49,6 +49,11 @@ namespace AvxUIntTest {
             ToStringTests<N15>.ToStringTest();
             ToStringTests<N16>.ToStringTest();
             ToStringTests<N17>.ToStringTest();
+            ToStringTests<N18>.ToStringTest();
+            ToStringTests<N19>.ToStringTest();
+            ToStringTests<N20>.ToStringTest();
+            ToStringTests<N21>.ToStringTest();
+            ToStringTests<N22>.ToStringTest();
             ToStringTests<N23>.ToStringTest();
             ToStringTests<N24>.ToStringTest();
             ToStringTests<N25>.ToStringTest();
@@ -82,6 +87,11 @@ namespace AvxUIntTest {
             ToStringTests<N15>.ToStringFullTest();
             ToStringTests<N16>.ToStringFullTest();
             ToStringTests<N17>.ToStringFullTest();
+            ToStringTests<N18>.ToStringFullTest();
+            ToStringTests<N19>.ToStringFullTest();
+            ToStringTests<N20>.ToStringFullTest();
+            ToStringTests<N21>.ToStringFullTest();
+            ToStringTests<N22>.ToStringFullTest();
             ToStringTests<N23>.ToStringFullTest();
             ToStringTests<N24>.ToStringFullTest();
             ToStringTests<N25>.ToStringFullTest();

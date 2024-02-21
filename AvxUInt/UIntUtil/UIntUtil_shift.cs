@@ -5,6 +5,8 @@ using static System.Runtime.Intrinsics.X86.Avx2;
 
 namespace AvxUInt {
     internal static partial class UIntUtil {
+        
+#pragma warning disable CA1857
 
         /// <summary>Shift uint32 array v &lt;&lt;= sft</summary>
         public static unsafe void LeftShift(UInt32[] value, int sft, bool check_overflow = false) {
@@ -166,6 +168,7 @@ namespace AvxUInt {
 
             Zeroset(value, count + 1, (uint)sft_block);
         }
+#pragma warning restore CA1857
 
         /// <summary>Shift uint32 array v &lt;&lt;= sft * UInt32Bits</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

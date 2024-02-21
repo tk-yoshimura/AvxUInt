@@ -75,6 +75,11 @@ namespace AvxUIntTest {
         [TestMethod]
         public void ZerosetN32Test() {
             ZerosetTests<N17>.ZerosetTest();
+            ZerosetTests<N18>.ZerosetTest();
+            ZerosetTests<N19>.ZerosetTest();
+            ZerosetTests<N20>.ZerosetTest();
+            ZerosetTests<N21>.ZerosetTest();
+            ZerosetTests<N22>.ZerosetTest();
             ZerosetTests<N23>.ZerosetTest();
             ZerosetTests<N24>.ZerosetTest();
             ZerosetTests<N25>.ZerosetTest();
@@ -120,6 +125,11 @@ namespace AvxUIntTest {
         [TestMethod]
         public void ZerosetLowerBitsN32Test() {
             ZerosetTests<N17>.ZerosetLowerBitsTest();
+            ZerosetTests<N18>.ZerosetLowerBitsTest();
+            ZerosetTests<N19>.ZerosetLowerBitsTest();
+            ZerosetTests<N20>.ZerosetLowerBitsTest();
+            ZerosetTests<N21>.ZerosetLowerBitsTest();
+            ZerosetTests<N22>.ZerosetLowerBitsTest();
             ZerosetTests<N23>.ZerosetLowerBitsTest();
             ZerosetTests<N24>.ZerosetLowerBitsTest();
             ZerosetTests<N25>.ZerosetLowerBitsTest();

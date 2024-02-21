@@ -26,7 +26,7 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+  <ItemGroup>
     <Reference Include="AvxUInt">
       <HintPath>..\AvxUInt\bin\Debug\net8.0\AvxUInt.dll</HintPath>
     </Reference>

@@ -52,6 +52,11 @@ namespace AvxUIntTest {
             ParseTests<N15>.ParseTest();
             ParseTests<N16>.ParseTest();
             ParseTests<N17>.ParseTest();
+            ParseTests<N18>.ParseTest();
+            ParseTests<N19>.ParseTest();
+            ParseTests<N20>.ParseTest();
+            ParseTests<N21>.ParseTest();
+            ParseTests<N22>.ParseTest();
             ParseTests<N23>.ParseTest();
             ParseTests<N24>.ParseTest();
             ParseTests<N25>.ParseTest();
@@ -85,6 +90,11 @@ namespace AvxUIntTest {
             ParseTests<N15>.ParseFullTest();
             ParseTests<N16>.ParseFullTest();
             ParseTests<N17>.ParseFullTest();
+            ParseTests<N18>.ParseFullTest();
+            ParseTests<N19>.ParseFullTest();
+            ParseTests<N20>.ParseFullTest();
+            ParseTests<N21>.ParseFullTest();
+            ParseTests<N22>.ParseFullTest();
             ParseTests<N23>.ParseFullTest();
             ParseTests<N24>.ParseFullTest();
             ParseTests<N25>.ParseFullTest();
@@ -118,6 +128,11 @@ namespace AvxUIntTest {
             ParseTests<N15>.ParseOverflowTest();
             ParseTests<N16>.ParseOverflowTest();
             ParseTests<N17>.ParseOverflowTest();
+            ParseTests<N18>.ParseOverflowTest();
+            ParseTests<N19>.ParseOverflowTest();
+            ParseTests<N20>.ParseOverflowTest();
+            ParseTests<N21>.ParseOverflowTest();
+            ParseTests<N22>.ParseOverflowTest();
             ParseTests<N23>.ParseOverflowTest();
             ParseTests<N24>.ParseOverflowTest();
             ParseTests<N25>.ParseOverflowTest();
