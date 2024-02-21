@@ -41,8 +41,7 @@ namespace AvxUIntTest {
                 BigUInt<N> v = new(bits, enable_clone: false);
                 BigInteger n = v;
 
-                UIntUtil.ZerosetLowerBit(bits, sft);
-                BigUInt<N> u = new(bits, enable_clone: false);
+                BigUInt<N> u = BigUInt<N>.ZerosetLowerBit(v, sft);
 
                 Assert.AreEqual((n >> (int)sft) << (int)sft, (BigInteger)u);
             }
